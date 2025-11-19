@@ -1,10 +1,11 @@
 // типизация маршрутов и их параметров
 export type RootRoutes = {
   AuthScreen: undefined;
-  MainScreen: undefined;
+  MainTabs: undefined;
 };
 
-export type AuthRoutes = {
-  SignInScreen: undefined;
-  SignUpScreen: undefined;
+export type MainTabsRoutes = {
+  HomeScreen: undefined;
+  Tasks: undefined;
+  Projects: undefined;
 };

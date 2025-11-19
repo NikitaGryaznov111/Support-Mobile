@@ -9,10 +9,10 @@ import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AuthNavigation from './src/navigation/AuthNavigation';
 import { Routes } from './src/constants/Routes';
 import { RootRoutes } from './src/types/navigation.types';
-
+import MainTabNavigator from './src/navigation/MainTabNavigator';
+import AuthScreen from './src/screens/Auth/AuthScreen.screen';
 const RootStack = createNativeStackNavigator<RootRoutes>();
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -25,11 +25,14 @@ function App() {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         />
         <RootStack.Navigator screenOptions={{ headerShown: false }}>
-          <RootStack.Screen
-            name={Routes.AuthScreen}
-            component={AuthNavigation}
-          />
-          {/* <RootStack.Screen name={Routes.MainScreen} component={MainNavigation} /> */}
+          {true ? (
+            <RootStack.Screen
+              name={Routes.MainTabs}
+              component={MainTabNavigator}
+            />
+          ) : (
+            <RootStack.Screen name={Routes.AuthScreen} component={AuthScreen} />
+          )}
         </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
@@ -37,3 +40,10 @@ function App() {
 }
 
 export default App;
+// export default function App() {
+//   return (
+//     <View style={{ flex: 1, backgroundColor: 'red' }}>
+//       <Text>TEST</Text>
+//     </View>
+//   );
+// }
