@@ -12,7 +12,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Routes } from './src/constants/Routes';
 import { RootRoutes } from './src/types/navigation.types';
 import MainTabNavigator from './src/navigation/MainTabNavigator';
-import AuthScreen from './src/screens/Auth/AuthScreen.screen';
+import AuthScreen from './src/screens/Auth/AuthScreen';
 const RootStack = createNativeStackNavigator<RootRoutes>();
 function App() {
   const isDarkMode = useColorScheme() === 'dark';

@@ -6,6 +6,7 @@ export type RootRoutes = {
 
 export type MainTabsRoutes = {
   HomeScreen: undefined;
-  Tasks: undefined;
-  Projects: undefined;
+  SearchScreen: undefined;
+  CreateTaskScreen: undefined;
+  SettingsScreen: undefined;
 };

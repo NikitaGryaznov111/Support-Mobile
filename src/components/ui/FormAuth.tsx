@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 10,
-    color: Colors.primaryColorTextAuth,
+    color: Colors.primaryTextAuth,
     marginBottom: 8,
     marginTop: 10,
   },

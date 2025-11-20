@@ -25,7 +25,7 @@ const AuthScreen = () => {
               style={[
                 mode === 'signIn'
                   ? styles.activeButton
-                  : { color: Colors.primaryColorTextAuth },
+                  : { color: Colors.primaryTextAuth },
                 { fontWeight: '500' },
               ]}
             />
@@ -37,7 +37,7 @@ const AuthScreen = () => {
               style={[
                 mode === 'signUp'
                   ? styles.activeButton
-                  : { color: Colors.primaryColorTextAuth },
+                  : { color: Colors.primaryTextAuth },
                 { fontWeight: '500' },
               ]}
             />
