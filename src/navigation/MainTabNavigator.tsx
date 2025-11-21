@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon } from 'react-native-vector-icons/Icon';
 import { MainTabsRoutes } from '../types/navigation.types';
 import { Routes } from '../constants/Routes';
 import HomeScreen from '../screens/Main/TabsBottom/HomeScreen';
@@ -9,17 +8,21 @@ import SearchScreen from '../screens/Main/TabsBottom/SearchScreen';
 import { Colors } from '../constants/Colors';
 import CreateTaskScreen from '../screens/Main/TabsBottom/CreateTaskScreen';
 import SettingsScreen from '../screens/Main/TabsBottom/SettingsScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 const MainTabNavigator = () => {
   const Tab = createBottomTabNavigator<MainTabsRoutes>();
   return (
+
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors.primaryBg,
+          height: 55,
         },
         tabBarActiveTintColor: Colors.tabActive,
         tabBarInactiveTintColor: Colors.tabInActive,
+        tabBarShowLabel: false,
       }}
     >
       <Tab.Screen
@@ -27,7 +30,7 @@ const MainTabNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="calculator" color={color} size={size} />
+              <Icon name="calendar" color={color} size={size} />
           ),
         }}
       />
@@ -36,7 +39,7 @@ const MainTabNavigator = () => {
         component={SearchScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="search" color={color} size={size} />
+              <Icon name="search" color={color} size={size} />
           ),
         }}
       />
@@ -45,16 +48,16 @@ const MainTabNavigator = () => {
         component={CreateTaskScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="tasks" color={color} size={size} />
+              <Icon name="create" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
         name={Routes.SettingsScreen}
-        component={SettingsScreen}
+        component={SettingsScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="stop" color={color} size={size} />
+              <Icon name="settings-sharp" color={color} size={size} />
           ),
         }}
       />
