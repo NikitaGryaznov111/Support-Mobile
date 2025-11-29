@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const MainTabNavigator = () => {
   const Tab = createBottomTabNavigator<MainTabsRoutes>();
   return (
-
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
@@ -24,13 +23,14 @@ const MainTabNavigator = () => {
         tabBarInactiveTintColor: Colors.tabInActive,
         tabBarShowLabel: false,
       }}
+      initialRouteName={Routes.HomeScreen}
     >
       <Tab.Screen
         name={Routes.HomeScreen}
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-              <Icon name="calendar" color={color} size={size} />
+            <Icon name="calendar" color={color} size={size} />
           ),
         }}
       />
@@ -39,7 +39,7 @@ const MainTabNavigator = () => {
         component={SearchScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-              <Icon name="search" color={color} size={size} />
+            <Icon name="search" color={color} size={size} />
           ),
         }}
       />
@@ -48,16 +48,16 @@ const MainTabNavigator = () => {
         component={CreateTaskScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-              <Icon name="create" color={color} size={size} />
+            <Icon name="create" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
         name={Routes.SettingsScreen}
-        component={SettingsScreen} 
+        component={SettingsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-              <Icon name="settings-sharp" color={color} size={size} />
+            <Icon name="settings-sharp" color={color} size={size} />
           ),
         }}
       />

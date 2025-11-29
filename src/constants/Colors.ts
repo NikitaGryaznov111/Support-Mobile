@@ -6,7 +6,9 @@ export enum Colors {
   tabInActive = '#b1b8d1ff',
   bottomLine = '#021d4bff',
   label = 'rgba(40, 68, 119, 0.59)',
-  TextCreateTask ='#021d4bff'
+  TextCreateTask = '#021d4bff',
+  bgModal = 'rgba(0, 0, 0, 0.6)',
+  bgModalContent = 'rgba(255, 255, 255, 0.6)',
 }
 
 // $colorTextSidebar: white;
