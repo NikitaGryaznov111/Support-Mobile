@@ -1,44 +1,35 @@
 /* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TextInputCustom from '../ui/TextInputCustom';
 import { Colors } from '../../constants/Colors';
 import ModalCustom from '../ui/ModalCustom';
 import Button from '../ui/Button';
-// Подумай над передачей элементов списка от сюда либо стор
-const FormCreateTask = () => {
-  const [nameTask, setNameTask] = useState<string>('');
-  const [descTask, setDescTask] = useState<string>('');
-  const [dateTask, setDateTask] = useState<string>('');
-  const [iconName, setIconName] = useState({
-    typesTasks: 'chevron-up',
-    priorityTasks: 'chevron-up',
-  });
-  const [isModalActiveTypesTasks, setIsModalActiveTypesTasks] = useState(false);
-  const [isModalActivePriorityTasks, setIsModalActivePriorityTasks] =
-    useState(false);
+import { priorityTasks, typesTasks } from '../../data/tasks';
+import useCreateTask from '../../hooks/useCreateTask';
 
-  const openModal = (modalType: string) => {
-    if (modalType === 'typeTasks') {
-      setIsModalActiveTypesTasks(true);
-      setIconName(prev => ({ ...prev, typesTasks: 'chevron-down' }));
-    }
-    if (modalType === 'priorityTasks') {
-      setIsModalActivePriorityTasks(true);
-      setIconName(prev => ({ ...prev, priorityTasks: 'chevron-down' }));
-    }
-  };
-  const closeModal = (modalType: string) => {
-    if (modalType === 'typeTasks') {
-      setIsModalActiveTypesTasks(false);
-      setIconName(prev => ({ ...prev, typesTasks: 'chevron-up' }));
-    } else if (modalType === 'priorityTasks') {
-      setIsModalActivePriorityTasks(false);
-      setIconName(prev => ({ ...prev, priorityTasks: 'chevron-up' }));
-    }
-  };
+const FormCreateTask = () => {
+  const {
+    nameTask,
+    setNameTask,
+    descTask,
+    setDescTask,
+    dateTask,
+    setDateTask,
+    iconName,
+    isModalActiveTypesTasks,
+    isModalActivePriorityTasks,
+    selectedTypeTask,
+    setSelectedTypeTask,
+    selectedPriorityTask,
+    setSelectedPriorityTask,
+    openModal,
+    closeModal,
+    resetForm,
+  } = useCreateTask();
   const saveTask = () => {};
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
@@ -47,13 +38,16 @@ const FormCreateTask = () => {
           style={styles.dropDown}
           onPress={() => openModal('typeTasks')}
         >
-          <Text>Дневная</Text>
+          <Text style={{ color: Colors.TextCreateTask }}>
+            {selectedTypeTask}
+          </Text>
           <Icon name={iconName.typesTasks} />
         </TouchableOpacity>
         <ModalCustom
           isModalActive={isModalActiveTypesTasks}
           closeModal={() => closeModal('typeTasks')}
-          typeModal="typeTasks"
+          data={typesTasks}
+          onSelect={setSelectedTypeTask}
         />
       </View>
       <View style={styles.container}>
@@ -62,13 +56,16 @@ const FormCreateTask = () => {
           style={styles.dropDown}
           onPress={() => openModal('priorityTasks')}
         >
-          <Text>Средний</Text>
+          <Text style={{ color: Colors.TextCreateTask }}>
+            {selectedPriorityTask}
+          </Text>
           <Icon name={iconName.priorityTasks} />
         </TouchableOpacity>
         <ModalCustom
           isModalActive={isModalActivePriorityTasks}
           closeModal={() => closeModal('priorityTasks')}
-          typeModal="priorityTasks"
+          data={priorityTasks}
+          onSelect={setSelectedPriorityTask}
         />
       </View>
       <View style={styles.container}>
@@ -95,11 +92,18 @@ const FormCreateTask = () => {
           colorText={{ color: Colors.TextCreateTask }}
         />
       </View>
-      <View style={styles.containerBtnSave}>
+      <View style={styles.buttons}>
+        <Button
+          title="Очистить форму"
+          onClick={resetForm}
+          styleText={{ color: '#ffffff' }}
+          styleView={styles.containerBtn}
+        />
         <Button
           title="Сохранить"
           onClick={saveTask}
-          style={{ color: '#ffffff' }}
+          styleText={{ color: '#ffffff' }}
+          styleView={styles.containerBtn}
         />
       </View>
     </View>
@@ -131,7 +135,12 @@ const styles = StyleSheet.create({
     color: Colors.label,
     marginBottom: 5,
   },
-  containerBtnSave: {
+  buttons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  containerBtn: {
     backgroundColor: Colors.primaryBgBtn,
     borderRadius: 20,
     height: 35,

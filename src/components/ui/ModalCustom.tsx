@@ -1,26 +1,51 @@
 /* eslint-disable react-native/no-inline-styles */
-import { View, Modal, StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import {
+  View,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  Text,
+} from 'react-native';
+import React, { useState } from 'react';
 import { Colors } from '../../constants/Colors';
 import Button from './Button';
-import TypesTasksList from '../features/TypesTasksList';
-import PriorityTasksList from '../features/PriorityTasksList';
 
 interface ModalCustomProps {
   isModalActive: boolean;
   closeModal: () => void;
-  typeModal: string;
+  data: string[];
+  onSelect: (value: string) => void;
 }
 export default function ModalCustom({
   isModalActive,
   closeModal,
-  typeModal,
+  data,
+  onSelect,
 }: ModalCustomProps) {
+  const [selectedItem, setSelectedItem] = useState<string>('');
   const saveTypeTask = () => {
+    onSelect(selectedItem);
     closeModal();
   };
-  console.log(isModalActive);
 
+  const renderItem = ({ item }: { item: string }) => {
+    const isSelected = selectedItem === item;
+    return (
+      <TouchableOpacity
+        onPress={() => setSelectedItem(item)}
+        style={isSelected ? styles.selectedItem : null}
+      >
+        <Text
+          style={
+            isSelected ? { color: Colors.primaryText } : { color: '#0d3488ff' }
+          }
+        >
+          {item}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
   return (
     <Modal
       animationType="slide"
@@ -43,14 +68,15 @@ export default function ModalCustom({
             />
           </View>
 
-          {typeModal === 'typeTasks' ? (
-            <TypesTasksList />
-          ) : (
-            <PriorityTasksList />
-          )}
+          <FlatList
+            contentContainerStyle={styles.list}
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item}
+          />
           <View style={[styles.containerBtnSave]}>
             <Button
-              style={{ color: '#ffffff' }}
+              styleText={{ color: '#ffffff' }}
               title="Сохранить"
               onClick={saveTypeTask}
             />
@@ -90,5 +116,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     top: 10,
+  },
+  list: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    rowGap: 15,
+  },
+  selectedItem: {
+    backgroundColor: Colors.primaryBgBtn,
+    width: 150,
+    paddingVertical: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#0b3ca6ff',
   },
 });
