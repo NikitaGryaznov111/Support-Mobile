@@ -5,18 +5,20 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import TextInputCustom from '../ui/TextInputCustom';
 import { Colors } from '../../constants/Colors';
 import ModalCustom from '../ui/ModalCustom';
+import ModalCalendar from '../ui/ModalCalendar';
 import Button from '../ui/Button';
 import { priorityTasks, typesTasks } from '../../data/tasks';
 import useCreateTask from '../../hooks/useCreateTask';
-
+import { observer } from 'mobx-react-lite';
+import { taskStore } from '../../store/Tasks.store';
+// Модалку можно сделать одну, переиспользуемую и передавать уже нужный контент
+// ПРодолжи работать со стором и календарем
 const FormCreateTask = () => {
   const {
     nameTask,
     setNameTask,
     descTask,
     setDescTask,
-    dateTask,
-    setDateTask,
     iconName,
     isModalActiveTypesTasks,
     isModalActivePriorityTasks,
@@ -27,9 +29,11 @@ const FormCreateTask = () => {
     openModal,
     closeModal,
     resetForm,
+    isModalActiveCalendar,
+    setIsModalActiveCalendar,
   } = useCreateTask();
-  const saveTask = () => {};
 
+  const saveTask = () => {};
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
@@ -86,10 +90,16 @@ const FormCreateTask = () => {
       </View>
       <View style={styles.container}>
         <Text style={styles.label}>Дата</Text>
-        <TextInputCustom
-          value={dateTask}
-          onChange={setDateTask}
-          colorText={{ color: Colors.TextCreateTask }}
+        <TouchableOpacity
+          style={styles.date}
+          onPress={() => setIsModalActiveCalendar(true)}
+        >
+          <Text>{taskStore.selectedDate}</Text>
+          <Icon name="calendar" />
+        </TouchableOpacity>
+        <ModalCalendar
+          isModalActive={isModalActiveCalendar}
+          closeModal={() => setIsModalActiveCalendar(false)}
         />
       </View>
       <View style={styles.buttons}>
@@ -110,7 +120,7 @@ const FormCreateTask = () => {
   );
 };
 
-export default FormCreateTask;
+export default observer(FormCreateTask);
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -127,6 +137,11 @@ const styles = StyleSheet.create({
   },
 
   dropDown: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  date: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

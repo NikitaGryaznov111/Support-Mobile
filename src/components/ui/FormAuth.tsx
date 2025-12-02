@@ -39,7 +39,7 @@ const FormAuth = ({ mode }: FormAuthProps) => {
       />
       <View style={[styles.containerBtn]}>
         <Button
-          style={{ color: '#ffffff', fontWeight: '600' }}
+          styleText={{ color: '#ffffff', fontWeight: '600' }}
           title={mode === 'signIn' ? 'SIGN IN' : 'SIGN UP'}
           onClick={() => {}}
         />

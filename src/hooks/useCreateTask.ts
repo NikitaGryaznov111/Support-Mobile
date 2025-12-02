@@ -4,10 +4,10 @@ const useCreateTask = () => {
   const [nameTask, setNameTask] = useState<string>('');
   const [descTask, setDescTask] = useState<string>('');
   const [dateTask, setDateTask] = useState<string>('');
-
   const [isModalActiveTypesTasks, setIsModalActiveTypesTasks] = useState(false);
   const [isModalActivePriorityTasks, setIsModalActivePriorityTasks] =
     useState(false);
+  const [isModalActiveCalendar, setIsModalActiveCalendar] = useState(false);
   const [selectedTypeTask, setSelectedTypeTask] = useState<string>('');
   const [selectedPriorityTask, setSelectedPriorityTask] = useState<string>('');
 
@@ -48,6 +48,8 @@ const useCreateTask = () => {
     openModal,
     closeModal,
     resetForm,
+    isModalActiveCalendar,
+    setIsModalActiveCalendar,
   };
 };
 
