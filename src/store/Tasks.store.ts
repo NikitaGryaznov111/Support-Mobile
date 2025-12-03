@@ -16,6 +16,9 @@ class TaskStore {
   setTaskCreated(value: TaskCreated) {
     this.taskCreated = value;
   }
+  resetDate(){
+    this.selectedDate = ''
+  }
 }
 
 export const taskStore = new TaskStore();

@@ -6,29 +6,25 @@ import { Colors } from '../../constants/Colors';
 import { taskStore } from '../../store/Tasks.store';
 import { observer } from 'mobx-react-lite';
 
-const CalendarCustom = () => {
+interface CalendarCustomProps {
+    closeModal: () => void;
+
+}
+const CalendarCustom = ({closeModal}:CalendarCustomProps) => {
   const handleDayPress = (day: { dateString: string }) => {
     taskStore.setSelectedDate(day.dateString);
+    closeModal()
   };
 
   return (
     <View>
-      <Text style={{ textAlign: 'center', marginBottom:5 }}>Выберите дату</Text>
       <Calendar
-        markedDates={{
-          [taskStore.selectedDate]: {
-            selected: true,
-            selectedColor: '#6200ee',
-            selectedTextColor: Colors.primaryText,
-          },
-        }}
         onDayPress={handleDayPress}
         hideExtraDays={true}
         theme={{
           textSectionTitleColor: '#666',
-calendarBackground: 'transparent',
-          selectedDayBackgroundColor: '#6200ee',
-          todayTextColor: '#6200ee',
+          calendarBackground: 'transparent',
+          todayTextColor: Colors.primaryBgBtn,
         }}
       />
     </View>

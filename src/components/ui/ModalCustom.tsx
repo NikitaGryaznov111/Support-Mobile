@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   Text,
+  Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Colors } from '../../constants/Colors';
@@ -25,6 +26,10 @@ export default function ModalCustom({
 }: ModalCustomProps) {
   const [selectedItem, setSelectedItem] = useState<string>('');
   const saveTypeTask = () => {
+    if (!selectedItem){
+      Alert.alert('Выберите значение')
+      return
+    }
     onSelect(selectedItem);
     closeModal();
   };

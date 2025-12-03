@@ -29,14 +29,7 @@ const ModalCalendar = ({ isModalActive, closeModal }: ModalCalendarProps) => {
               styleIcon={{ color: '#0d3488ff' }}
             />
           </View>
-          <CalendarCustom />
-          <View style={[styles.containerBtnSave]}>
-            <Button
-              styleText={{ color: '#ffffff' }}
-              title="Выбрать"
-              onClick={closeModal}
-            />
-          </View>
+          <CalendarCustom closeModal={closeModal}/>
         </View>
       </View>
     </Modal>

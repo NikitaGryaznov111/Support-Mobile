@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { taskStore } from '../store/Tasks.store';
 
 const useCreateTask = () => {
   const [nameTask, setNameTask] = useState<string>('');
   const [descTask, setDescTask] = useState<string>('');
-  const [dateTask, setDateTask] = useState<string>('');
   const [isModalActiveTypesTasks, setIsModalActiveTypesTasks] = useState(false);
   const [isModalActivePriorityTasks, setIsModalActivePriorityTasks] =
     useState(false);
@@ -15,20 +15,39 @@ const useCreateTask = () => {
     typesTasks: isModalActiveTypesTasks ? 'chevron-down' : 'chevron-up',
     priorityTasks: isModalActivePriorityTasks ? 'chevron-down' : 'chevron-up',
   };
+
   const openModal = (modalType: string) => {
-    if (modalType === 'typeTasks') setIsModalActiveTypesTasks(true);
-    if (modalType === 'priorityTasks') setIsModalActivePriorityTasks(true);
+    switch (modalType) {
+      case 'typeTasks':
+        setIsModalActiveTypesTasks(true);
+        break;
+      case 'priorityTasks':
+        setIsModalActivePriorityTasks(true);
+        break;
+      case 'calendar':
+        setIsModalActiveCalendar(true);
+        break;
+    }
   };
   const closeModal = (modalType: string) => {
-    if (modalType === 'typeTasks') setIsModalActiveTypesTasks(false);
-    if (modalType === 'priorityTasks') setIsModalActivePriorityTasks(false);
+    switch (modalType) {
+      case 'typeTasks':
+        setIsModalActiveTypesTasks(false);
+        break;
+      case 'priorityTasks':
+        setIsModalActivePriorityTasks(false);
+        break;
+      case 'calendar':
+        setIsModalActiveCalendar(false);
+        break;
+    }
   };
   const resetForm = () => {
     setSelectedTypeTask('');
     setSelectedPriorityTask('');
     setNameTask('');
     setDescTask('');
-    setDateTask('');
+    taskStore.resetDate()
   };
 
   return {
@@ -36,8 +55,6 @@ const useCreateTask = () => {
     setNameTask,
     descTask,
     setDescTask,
-    dateTask,
-    setDateTask,
     iconName,
     isModalActiveTypesTasks,
     isModalActivePriorityTasks,

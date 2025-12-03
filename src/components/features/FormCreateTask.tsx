@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TextInputCustom from '../ui/TextInputCustom';
@@ -14,8 +14,6 @@ import { taskStore } from '../../store/Tasks.store';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/Routes';
 import { NavigateProps } from '../../types/navigation.types';
-// Модалку можно сделать одну, переиспользуемую и передавать уже нужный контент
-// ПРодолжи работать со стором и календарем
 // После сохранения задачи переходить на хом скрин и их отображать
 const FormCreateTask = () => {
   const {
@@ -36,8 +34,13 @@ const FormCreateTask = () => {
     isModalActiveCalendar,
     setIsModalActiveCalendar,
   } = useCreateTask();
-  const {navigate} = useNavigation<NavigateProps>()
+  const { navigate } = useNavigation<NavigateProps>();
+
   const saveTask = () => {
+    if (!selectedTypeTask || !selectedPriorityTask || !nameTask || !taskStore.selectedDate) {
+      Alert.alert('Заполните поля для создания задачи');
+      return;
+    }
     taskStore.setTaskCreated({
       selectedTypeTask,
       selectedPriorityTask,
@@ -45,7 +48,7 @@ const FormCreateTask = () => {
       descTask,
       selectedDate: taskStore.selectedDate,
     });
-    navigate(Routes.HomeScreen)
+    navigate(Routes.HomeScreen);
   };
   return (
     <View style={styles.wrapper}>
@@ -105,14 +108,14 @@ const FormCreateTask = () => {
         <Text style={styles.label}>Дата</Text>
         <TouchableOpacity
           style={styles.date}
-          onPress={() => setIsModalActiveCalendar(true)}
+          onPress={()=>openModal('calendar')}
         >
           <Text>{taskStore.selectedDate}</Text>
           <Icon name="calendar" />
         </TouchableOpacity>
         <ModalCalendar
           isModalActive={isModalActiveCalendar}
-          closeModal={() => setIsModalActiveCalendar(false)}
+          closeModal={() => closeModal('calendar')}
         />
       </View>
       <View style={styles.buttons}>
