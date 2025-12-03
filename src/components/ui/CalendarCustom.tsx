@@ -13,9 +13,8 @@ const CalendarCustom = () => {
 
   return (
     <View>
-      <Text style={{ textAlign: 'center' }}>Выберите дату</Text>
+      <Text style={{ textAlign: 'center', marginBottom:5 }}>Выберите дату</Text>
       <Calendar
-        style={{ backgroundColor: 'transparent' }}
         markedDates={{
           [taskStore.selectedDate]: {
             selected: true,
@@ -27,6 +26,7 @@ const CalendarCustom = () => {
         hideExtraDays={true}
         theme={{
           textSectionTitleColor: '#666',
+calendarBackground: 'transparent',
           selectedDayBackgroundColor: '#6200ee',
           todayTextColor: '#6200ee',
         }}

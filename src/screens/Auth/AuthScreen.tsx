@@ -22,7 +22,7 @@ const AuthScreen = () => {
               onClick={() => {
                 setMode('signIn');
               }}
-              style={[
+              styleText={[
                 mode === 'signIn'
                   ? styles.activeButton
                   : { color: Colors.primaryTextAuth },
@@ -34,7 +34,7 @@ const AuthScreen = () => {
               onClick={() => {
                 setMode('signUp');
               }}
-              style={[
+              styleText={[
                 mode === 'signUp'
                   ? styles.activeButton
                   : { color: Colors.primaryTextAuth },

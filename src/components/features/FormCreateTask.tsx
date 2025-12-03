@@ -11,8 +11,12 @@ import { priorityTasks, typesTasks } from '../../data/tasks';
 import useCreateTask from '../../hooks/useCreateTask';
 import { observer } from 'mobx-react-lite';
 import { taskStore } from '../../store/Tasks.store';
+import { useNavigation } from '@react-navigation/native';
+import { Routes } from '../../constants/Routes';
+import { NavigateProps } from '../../types/navigation.types';
 // Модалку можно сделать одну, переиспользуемую и передавать уже нужный контент
 // ПРодолжи работать со стором и календарем
+// После сохранения задачи переходить на хом скрин и их отображать
 const FormCreateTask = () => {
   const {
     nameTask,
@@ -32,8 +36,17 @@ const FormCreateTask = () => {
     isModalActiveCalendar,
     setIsModalActiveCalendar,
   } = useCreateTask();
-
-  const saveTask = () => {};
+  const {navigate} = useNavigation<NavigateProps>()
+  const saveTask = () => {
+    taskStore.setTaskCreated({
+      selectedTypeTask,
+      selectedPriorityTask,
+      nameTask,
+      descTask,
+      selectedDate: taskStore.selectedDate,
+    });
+    navigate(Routes.HomeScreen)
+  };
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
