@@ -5,7 +5,7 @@ import { TaskCreated } from '../types/tasks.types';
 
 class TaskStore {
   selectedDate = '';
-  taskCreated = {};
+  tasksList:TaskCreated[] = [];
   constructor() {
     makeAutoObservable(this);
   }
@@ -14,7 +14,7 @@ class TaskStore {
     this.selectedDate = newDate;
   }
   setTaskCreated(value: TaskCreated) {
-    this.taskCreated = value;
+    this.tasksList.push(value);
   }
   resetDate(){
     this.selectedDate = ''
