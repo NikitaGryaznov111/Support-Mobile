@@ -2,22 +2,14 @@
 
 import { makeAutoObservable } from 'mobx';
 import { TaskCreated } from '../types/tasks.types';
-
 class TaskStore {
-  selectedDate = '';
-  tasksList:TaskCreated[] = [];
+  tasksList: TaskCreated[] = [];
   constructor() {
     makeAutoObservable(this);
   }
-  setSelectedDate(value: string) {
-    const newDate = value.split('-').reverse().join('.');
-    this.selectedDate = newDate;
-  }
+
   setTaskCreated(value: TaskCreated) {
     this.tasksList.push(value);
-  }
-  resetDate(){
-    this.selectedDate = ''
   }
 }
 

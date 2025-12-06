@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { taskStore } from '../store/Tasks.store';
 
 const useCreateTask = () => {
   const [nameTask, setNameTask] = useState<string>('');
@@ -10,6 +9,7 @@ const useCreateTask = () => {
   const [isModalActiveCalendar, setIsModalActiveCalendar] = useState(false);
   const [selectedTypeTask, setSelectedTypeTask] = useState<string>('');
   const [selectedPriorityTask, setSelectedPriorityTask] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState<string>('');
 
   const iconName = {
     typesTasks: isModalActiveTypesTasks ? 'chevron-down' : 'chevron-up',
@@ -47,7 +47,7 @@ const useCreateTask = () => {
     setSelectedPriorityTask('');
     setNameTask('');
     setDescTask('');
-    taskStore.resetDate()
+    setSelectedDate('');
   };
 
   return {
@@ -67,6 +67,8 @@ const useCreateTask = () => {
     resetForm,
     isModalActiveCalendar,
     setIsModalActiveCalendar,
+    selectedDate,
+    setSelectedDate,
   };
 };
 

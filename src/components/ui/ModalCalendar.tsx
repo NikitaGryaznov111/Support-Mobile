@@ -6,8 +6,13 @@ import CalendarCustom from './CalendarCustom';
 interface ModalCalendarProps {
   isModalActive: boolean;
   closeModal: () => void;
+  onSelect: (value: string) => void;
 }
-const ModalCalendar = ({ isModalActive, closeModal }: ModalCalendarProps) => {
+const ModalCalendar = ({
+  isModalActive,
+  closeModal,
+  onSelect,
+}: ModalCalendarProps) => {
   return (
     <Modal
       animationType="slide"
@@ -29,7 +34,7 @@ const ModalCalendar = ({ isModalActive, closeModal }: ModalCalendarProps) => {
               styleIcon={{ color: '#0d3488ff' }}
             />
           </View>
-          <CalendarCustom closeModal={closeModal}/>
+          <CalendarCustom closeModal={closeModal} onSelect={onSelect} />
         </View>
       </View>
     </Modal>

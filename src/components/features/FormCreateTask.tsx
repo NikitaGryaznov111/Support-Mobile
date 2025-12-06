@@ -1,11 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
-import TextInputCustom from '../ui/TextInputCustom';
 import { Colors } from '../../constants/Colors';
-import ModalCustom from '../ui/ModalCustom';
-import ModalCalendar from '../ui/ModalCalendar';
 import Button from '../ui/Button';
 import { priorityTasks, typesTasks } from '../../data/tasks';
 import useCreateTask from '../../hooks/useCreateTask';
@@ -14,14 +10,14 @@ import { taskStore } from '../../store/Tasks.store';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../constants/Routes';
 import { NavigateProps } from '../../types/navigation.types';
-// После сохранения задачи переходить на хом скрин и их отображать
+import FormCreateItem from './FormCreateItem';
 const FormCreateTask = () => {
   const {
     nameTask,
     setNameTask,
     descTask,
-    setDescTask,
     iconName,
+    setDescTask,
     isModalActiveTypesTasks,
     isModalActivePriorityTasks,
     selectedTypeTask,
@@ -32,92 +28,82 @@ const FormCreateTask = () => {
     closeModal,
     resetForm,
     isModalActiveCalendar,
-    setIsModalActiveCalendar,
+    selectedDate,
+    setSelectedDate,
   } = useCreateTask();
   const { navigate } = useNavigation<NavigateProps>();
 
   const saveTask = () => {
-    if (!selectedTypeTask || !selectedPriorityTask || !nameTask || !taskStore.selectedDate) {
-      Alert.alert('Заполните поля для создания задачи');
-      return;
-    }
+    // if (
+    //   !selectedTypeTask ||
+    //   !selectedPriorityTask ||
+    //   !nameTask ||
+    //   !selectedDate
+    // ) {
+    //   Alert.alert('Заполните поля для создания задачи');
+    //   return;
+    // }
     taskStore.setTaskCreated({
       selectedTypeTask,
       selectedPriorityTask,
       nameTask,
       descTask,
-      selectedDate: taskStore.selectedDate,
+      selectedDate,
     });
+    resetForm();
     navigate(Routes.HomeScreen);
   };
+  console.log(isModalActiveTypesTasks);
+
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.container}>
-        <Text style={styles.label}>Тип задачи</Text>
-        <TouchableOpacity
-          style={styles.dropDown}
-          onPress={() => openModal('typeTasks')}
-        >
-          <Text style={{ color: Colors.TextCreateTask }}>
-            {selectedTypeTask}
-          </Text>
-          <Icon name={iconName.typesTasks} />
-        </TouchableOpacity>
-        <ModalCustom
-          isModalActive={isModalActiveTypesTasks}
-          closeModal={() => closeModal('typeTasks')}
-          data={typesTasks}
-          onSelect={setSelectedTypeTask}
-        />
-      </View>
-      <View style={styles.container}>
-        <Text style={styles.label}>Приоритет</Text>
-        <TouchableOpacity
-          style={styles.dropDown}
-          onPress={() => openModal('priorityTasks')}
-        >
-          <Text style={{ color: Colors.TextCreateTask }}>
-            {selectedPriorityTask}
-          </Text>
-          <Icon name={iconName.priorityTasks} />
-        </TouchableOpacity>
-        <ModalCustom
-          isModalActive={isModalActivePriorityTasks}
-          closeModal={() => closeModal('priorityTasks')}
-          data={priorityTasks}
-          onSelect={setSelectedPriorityTask}
-        />
-      </View>
-      <View style={styles.container}>
-        <Text style={styles.label}>Имя задачи</Text>
-        <TextInputCustom
-          value={nameTask}
-          onChange={setNameTask}
-          colorText={{ color: Colors.TextCreateTask }}
-        />
-      </View>
-      <View style={styles.container}>
-        <Text style={styles.label}>Описание задачи</Text>
-        <TextInputCustom
-          value={descTask}
-          onChange={setDescTask}
-          colorText={{ color: Colors.TextCreateTask }}
-        />
-      </View>
-      <View style={styles.container}>
-        <Text style={styles.label}>Дата</Text>
-        <TouchableOpacity
-          style={styles.date}
-          onPress={()=>openModal('calendar')}
-        >
-          <Text>{taskStore.selectedDate}</Text>
-          <Icon name="calendar" />
-        </TouchableOpacity>
-        <ModalCalendar
-          isModalActive={isModalActiveCalendar}
-          closeModal={() => closeModal('calendar')}
-        />
-      </View>
+    <View style={styles.form}>
+      <FormCreateItem
+        mode="modal"
+        label="Тип задачи"
+        data={typesTasks}
+        typeModal="typeTasks"
+        selectedItem={selectedTypeTask}
+        isModalActive={isModalActiveTypesTasks}
+        onSelect={setSelectedTypeTask}
+        iconName={iconName.typesTasks}
+        openModal={() => openModal('typeTasks')}
+        closeModal={() => closeModal('typeTasks')}
+      />
+      <FormCreateItem
+        mode="modal"
+        label="Приоритет"
+        data={priorityTasks}
+        typeModal="priorityTasks"
+        selectedItem={selectedPriorityTask}
+        isModalActive={isModalActivePriorityTasks}
+        onSelect={setSelectedPriorityTask}
+        iconName={iconName.priorityTasks}
+        openModal={() => openModal('priorityTasks')}
+        closeModal={() => closeModal('priorityTasks')}
+      />
+      <FormCreateItem
+        mode="textInput"
+        label="Имя задачи"
+        value={nameTask}
+        setValue={setNameTask}
+      />
+      <FormCreateItem
+        mode="textInput"
+        label="Описание задачи"
+        value={descTask}
+        setValue={setDescTask}
+      />
+      <FormCreateItem
+        mode="modal"
+        label="Дата"
+        typeModal="calendar"
+        selectedItem={selectedDate}
+        isModalActive={isModalActiveCalendar}
+        onSelect={setSelectedDate}
+        iconName="calendar"
+        openModal={() => openModal('calendar')}
+        closeModal={() => closeModal('calendar')}
+      />
       <View style={styles.buttons}>
         <Button
           title="Очистить форму"
@@ -139,7 +125,7 @@ const FormCreateTask = () => {
 export default observer(FormCreateTask);
 
 const styles = StyleSheet.create({
-  wrapper: {
+  form: {
     alignItems: 'center',
     paddingHorizontal: 35,
     paddingTop: 20,

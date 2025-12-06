@@ -1,21 +1,19 @@
-import React from 'react'
-import { FlashList } from '@shopify/flash-list'
-import { observer } from 'mobx-react-lite'
-import { taskStore } from '../../store/Tasks.store'
-import { Text } from 'react-native'
-import { TaskCreated } from '../../types/tasks.types'
+import React from 'react';
+import { observer } from 'mobx-react-lite';
+import { taskStore } from '../../store/Tasks.store';
+import { FlatList } from 'react-native';
+import { TaskCreated } from '../../types/tasks.types';
+import TaskItem from './TaskItem';
 
 const TasksList = () => {
-const {tasksList} = taskStore
-    const renderItem = ({item}:{item:TaskCreated}) =>{
-        return <Text>{item.selectedTypeTask}</Text>
-    }
+  const { tasksList } = taskStore;
+  console.log(tasksList);
 
-  return (
-    // @ts-ignore
+  const renderItem = ({ item }: { item: TaskCreated }) => {
+    return <TaskItem item={item} />;
+  };
 
-    <FlashList renderItem={renderItem} data={tasksList} estimatedItemSize={60}/>
-  )
-}
+  return <FlatList renderItem={renderItem} data={tasksList} />;
+};
 
-export default observer(TasksList)
+export default observer(TasksList);
