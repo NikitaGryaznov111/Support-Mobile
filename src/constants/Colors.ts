@@ -10,6 +10,8 @@ export enum Colors {
   TextCreateTask = '#01163aff',
   bgModal = 'rgba(0, 0, 0, 0.6)',
   bgModalContent = '#e2e5ebff',
+  gray = 'gray',
+  checkedTask = '#21e627ad',
 }
 
 // $colorTextSidebar: white;

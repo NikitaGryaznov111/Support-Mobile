@@ -32,6 +32,7 @@ const MainTabNavigator = () => {
           tabBarIcon: ({ color, size }) => (
             <Icon name="calendar" color={color} size={size} />
           ),
+          // title: 'Список задач',
         }}
       />
       <Tab.Screen
