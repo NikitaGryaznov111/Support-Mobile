@@ -10,10 +10,10 @@ interface CheckboxProps {
 const Checkbox = ({ checked, onChecked }: CheckboxProps) => {
   return (
     <TouchableOpacity
-      style={styles.checkbox}
+      style={[styles.checkbox, !checked && { borderColor: Colors.Gray }]}
       onPress={() => onChecked(!checked)}
     >
-      {checked && <Icon name="checkmark" size={19} color={Colors.gray} />}
+      {checked && <Icon name="checkmark" size={19} color="#414040ff" />}
     </TouchableOpacity>
   );
 };
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: Colors.gray,
+    borderColor: '#3d3d3dff',
     marginRight: 15,
     borderRadius: 4,
   },

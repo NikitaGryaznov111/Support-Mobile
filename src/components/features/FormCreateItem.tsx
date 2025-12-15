@@ -40,14 +40,14 @@ const FormCreateItem = ({
       <TextInputCustom
         value={value!}
         onChange={setValue!}
-        colorText={{ color: Colors.TextCreateTask }}
+        colorText={{ color: Colors.BlueDDD }}
       />
     </View>
   ) : (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TouchableOpacity style={styles.dropDown} onPress={openModal}>
-        <Text style={{ color: Colors.TextCreateTask }}>{selectedItem}</Text>
+        <Text style={{ color: Colors.BlueDDD }}>{selectedItem}</Text>
         <Icon name={iconName!} />
       </TouchableOpacity>
       {typeModal !== 'calendar' ? (
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomWidth: 1,
     paddingBottom: 5,
-    borderBottomColor: Colors.bottomLine,
+    borderBottomColor: Colors.BlueDD,
   },
 
   dropDown: {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   label: {
-    color: Colors.label,
+    color: Colors.GrayD,
     marginBottom: 5,
   },
 });

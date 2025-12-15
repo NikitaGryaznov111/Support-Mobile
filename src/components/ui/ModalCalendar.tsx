@@ -31,7 +31,7 @@ const ModalCalendar = ({
               onClick={closeModal}
               icon="close"
               size={20}
-              styleIcon={{ color: '#0d3488ff' }}
+              styleIcon={{ color: Colors.BlueL }}
             />
           </View>
           <CalendarCustom closeModal={closeModal} onSelect={onSelect} />
@@ -56,15 +56,6 @@ const styles = StyleSheet.create({
     paddingVertical: 25,
     borderRadius: 15,
   },
-  containerBtnSave: {
-    backgroundColor: Colors.primaryBgBtn,
-    borderRadius: 20,
-    height: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 15,
-    paddingHorizontal: 10,
-  },
   containerBtnClose: {
     position: 'absolute',
     right: 10,
@@ -74,16 +65,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     rowGap: 15,
-  },
-  selectedItem: {
-    backgroundColor: Colors.primaryBgBtn,
-    width: 150,
-    paddingVertical: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#0b3ca6ff',
   },
 });
 export default ModalCalendar;

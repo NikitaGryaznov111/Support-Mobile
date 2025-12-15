@@ -26,9 +26,9 @@ export default function ModalCustom({
 }: ModalCustomProps) {
   const [selectedItem, setSelectedItem] = useState<string>('');
   const saveTypeTask = () => {
-    if (!selectedItem){
-      Alert.alert('Выберите значение')
-      return
+    if (!selectedItem) {
+      Alert.alert('Выберите значение');
+      return;
     }
     onSelect(selectedItem);
     closeModal();
@@ -42,9 +42,7 @@ export default function ModalCustom({
         style={isSelected ? styles.selectedItem : null}
       >
         <Text
-          style={
-            isSelected ? { color: Colors.primaryText } : { color: '#0d3488ff' }
-          }
+          style={isSelected ? { color: Colors.White } : { color: '#0d3488ff' }}
         >
           {item}
         </Text>
@@ -109,7 +107,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   containerBtnSave: {
-    backgroundColor: Colors.primaryBgBtn,
+    backgroundColor: Colors.BlueL,
     borderRadius: 20,
     height: 35,
     alignItems: 'center',
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     rowGap: 15,
   },
   selectedItem: {
-    backgroundColor: Colors.primaryBgBtn,
+    backgroundColor: Colors.BlueL,
     width: 150,
     paddingVertical: 5,
     alignItems: 'center',

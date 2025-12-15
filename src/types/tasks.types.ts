@@ -1,7 +1,8 @@
-export type TaskCreated = {
-  selectedTypeTask: string;
-  selectedPriorityTask: string;
-  nameTask: string;
-  descTask: string;
-  selectedDate: string;
+export type TTask = {
+  type: string;
+  priority: string;
+  name: string;
+  desc: string;
+  date: string;
+  id: string;
 };

@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     height: 35,
   },
   containerBtn: {
-    backgroundColor: Colors.primaryBgBtn,
+    backgroundColor: Colors.BlueD,
     borderRadius: 20,
     height: 35,
     alignItems: 'center',

@@ -1,32 +1,35 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TaskCreated } from '../../types/tasks.types';
+import { TTask } from '../../types/tasks.types';
 import { Colors } from '../../constants/Colors';
 import Checkbox from '../ui/Checkbox';
 import { taskStore } from '../../store/Tasks.store';
-
+import { observer } from 'mobx-react-lite';
+// TODO Надо его улучшить, что-то мне не нравится вид
 interface TaskItemProps {
-  item: TaskCreated;
+  item: TTask;
 }
 const TaskItem = ({ item }: TaskItemProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isFavorites, setIsFavorites] = useState(false);
-
-  const saveInFavorites = (task: TaskCreated) => {
-    // При повтроном нажатии удалять из избранного (надо давать каждой задаче уник ид и по не му удалять потом). Возможно добавлять ид в момент создания задачи
+  // TODO isFlag тоже обрабатывай через mobX
+  // TODO создай кастомную модалку, здесь используй как предупреждение при удалении задачи
+  const [isFlag, setIsFlag] = useState(false);
+  const { name, type, desc, date, id } = item;
+  const { tasksInFavorites } = taskStore;
+  const saveInFavorites = (task: TTask) => {
     taskStore.setTasksInFavorites(task);
-    setIsFavorites(!isFavorites);
   };
+  const removeTask = (id: string) => {
+    taskStore.deleteTask(id);
+  };
+  const isFavorites = tasksInFavorites.some(task => task.id === id);
+
   return (
-    <View
-      style={[
-        styles.item,
-        isChecked && { backgroundColor: Colors.checkedTask },
-      ]}
-    >
+    <View style={[styles.item, isChecked && { backgroundColor: Colors.Blue }]}>
       <View style={[styles.leftLine, isChecked && { opacity: 1 }]} />
       <View style={styles.content}>
         <Checkbox checked={isChecked} onChecked={setIsChecked} />
@@ -34,27 +37,34 @@ const TaskItem = ({ item }: TaskItemProps) => {
           style={styles.textContainer}
           onPress={() => setIsExpanded(prev => !prev)}
         >
-          <Text style={styles.taskName}>{item.nameTask}</Text>
+          <Text style={styles.taskName}>{name}</Text>
           {isExpanded && (
             <View>
-              <Text style={styles.taskDesc}>{item.descTask}</Text>
-              <Text style={styles.taskDate}>{item.selectedDate}</Text>
+              {desc && <Text style={styles.taskDesc}>{desc}</Text>}
+              {date && <Text style={styles.taskDate}>{date}</Text>}
             </View>
           )}
         </TouchableOpacity>
-        {/* Флаг + добавить в избранное */}
         <View style={styles.rightContent}>
-          <Text>{item.selectedTypeTask}</Text>
-          {/* Две кнопки: флаг + добавить в избранное */}
-          <TouchableOpacity>
-            <Icon name="flag-outline" size={20} />
+          <Text style={[styles.typeTask, !isChecked && { color: Colors.Gray }]}>
+            {type && `@${type}`}
+          </Text>
+          <TouchableOpacity onPress={() => setIsFlag(prev => !prev)}>
+            <Icon
+              name="flag"
+              size={20}
+              color={isFlag ? Colors.Red : Colors.WhiteD}
+            />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => saveInFavorites(item)}>
             <Icon
-              name="star-outline"
+              name="star"
               size={20}
-              color={isFavorites ? 'gold' : ''}
+              color={isFavorites ? Colors.Gold : Colors.WhiteD}
             />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => removeTask(id)}>
+            <Icon name="remove" size={20} />
           </TouchableOpacity>
         </View>
       </View>
@@ -62,17 +72,17 @@ const TaskItem = ({ item }: TaskItemProps) => {
   );
 };
 
-export default TaskItem;
+export default observer(TaskItem);
 
 const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     borderBottomWidth: 0.5,
-    borderBottomColor: Colors.gray,
+    borderBottomColor: Colors.Gray,
   },
   leftLine: {
     width: 5,
-    backgroundColor: '#066b0eff',
+    backgroundColor: Colors.BlueD,
     opacity: 0,
   },
   content: {
@@ -82,7 +92,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     flex: 1,
   },
-
   textContainer: {
     flex: 1,
   },
@@ -94,15 +103,19 @@ const styles = StyleSheet.create({
   taskDesc: {
     fontSize: 12,
     fontWeight: '400',
-    color: Colors.gray,
   },
   taskDate: {
     fontSize: 10,
     fontWeight: '400',
-    color: Colors.gray,
   },
   rightContent: {
     marginTop: 'auto',
     flexDirection: 'row',
+    columnGap: 5,
+    alignItems: 'center',
+  },
+  typeTask: {
+    fontSize: 11,
+    alignSelf: 'flex-end',
   },
 });

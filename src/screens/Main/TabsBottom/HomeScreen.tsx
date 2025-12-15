@@ -5,7 +5,7 @@ import TasksList from '../../../components/features/TasksList';
 
 const HomeScreen = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       {/* Calendar можно добавить*/}
       <TasksList />
     </SafeAreaView>

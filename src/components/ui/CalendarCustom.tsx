@@ -24,7 +24,7 @@ const CalendarCustom = ({ closeModal, onSelect }: CalendarCustomProps) => {
         theme={{
           textSectionTitleColor: '#666',
           calendarBackground: 'transparent',
-          todayTextColor: Colors.primaryBgBtn,
+          todayTextColor: Colors.BlueL,
         }}
       />
     </View>

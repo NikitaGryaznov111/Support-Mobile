@@ -5,4 +5,7 @@ export enum Routes {
   SearchScreen = 'SearchScreen',
   CreateTaskScreen = 'CreateTaskScreen',
   SettingsScreen = 'SettingsScreen',
+  DrawerNavigator = 'Drawer',
+  FavoritesScreen = 'FavoritesScreen',
+  HomeTab = 'HomeTab',
 }

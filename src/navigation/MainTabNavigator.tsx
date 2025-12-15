@@ -3,12 +3,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainTabsRoutes } from '../types/navigation.types';
 import { Routes } from '../constants/Routes';
-import HomeScreen from '../screens/Main/TabsBottom/HomeScreen';
 import SearchScreen from '../screens/Main/TabsBottom/SearchScreen';
 import { Colors } from '../constants/Colors';
 import CreateTaskScreen from '../screens/Main/TabsBottom/CreateTaskScreen';
 import SettingsScreen from '../screens/Main/TabsBottom/SettingsScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import DrawerNavigator from './DrawerNavigator';
 const MainTabNavigator = () => {
   const Tab = createBottomTabNavigator<MainTabsRoutes>();
   return (
@@ -16,18 +16,17 @@ const MainTabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: Colors.primaryBg,
+          backgroundColor: Colors.BlueD,
           height: 55,
         },
         tabBarActiveTintColor: Colors.tabActive,
         tabBarInactiveTintColor: Colors.tabInActive,
         tabBarShowLabel: false,
       }}
-      initialRouteName={Routes.HomeScreen}
     >
       <Tab.Screen
-        name={Routes.HomeScreen}
-        component={HomeScreen}
+        name={Routes.HomeTab}
+        component={DrawerNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Icon name="calendar" color={color} size={size} />

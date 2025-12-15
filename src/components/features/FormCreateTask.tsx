@@ -43,17 +43,20 @@ const FormCreateTask = () => {
     //   Alert.alert('Заполните поля для создания задачи');
     //   return;
     // }
+
     taskStore.setTaskCreated({
-      selectedTypeTask,
-      selectedPriorityTask,
-      nameTask,
-      descTask,
-      selectedDate,
+      type: selectedTypeTask,
+      priority: selectedPriorityTask,
+      name: nameTask,
+      desc: descTask,
+      date: selectedDate,
+      id: `${new Date()}`,
     });
     resetForm();
-    navigate(Routes.HomeScreen);
+    navigate(Routes.HomeTab, {
+      screen: Routes.HomeScreen,
+    });
   };
-  console.log(isModalActiveTypesTasks);
 
   return (
     <View style={styles.form}>
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomWidth: 1,
     paddingBottom: 5,
-    borderBottomColor: Colors.bottomLine,
+    borderBottomColor: Colors.BlueD,
   },
 
   dropDown: {
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   label: {
-    color: Colors.label,
+    color: Colors.GrayD,
     marginBottom: 5,
   },
   buttons: {
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   containerBtn: {
-    backgroundColor: Colors.primaryBgBtn,
+    backgroundColor: Colors.BlueL,
     borderRadius: 20,
     height: 35,
     alignItems: 'center',

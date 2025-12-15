@@ -1,5 +1,6 @@
 // типизация маршрутов и их параметров
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Routes } from '../constants/Routes';
 
 export type RootRoutes = {
   AuthScreen: undefined;
@@ -7,7 +8,7 @@ export type RootRoutes = {
 };
 
 export type MainTabsRoutes = {
-  HomeScreen: undefined;
+  HomeTab: { screen: Routes };
   SearchScreen: undefined;
   CreateTaskScreen: undefined;
   SettingsScreen: undefined;

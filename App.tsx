@@ -38,7 +38,6 @@ function App() {
     </SafeAreaProvider>
   );
 }
-
 export default App;
 // export default function App() {
 //   return (
