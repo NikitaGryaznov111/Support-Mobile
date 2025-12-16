@@ -13,5 +13,8 @@ export type MainTabsRoutes = {
   CreateTaskScreen: undefined;
   SettingsScreen: undefined;
 };
-
+export type DrawerRoutes = {
+  HomeScreen: undefined;
+  FavoritesScreen: undefined;
+};
 export type NavigateProps = NativeStackNavigationProp<MainTabsRoutes>;
