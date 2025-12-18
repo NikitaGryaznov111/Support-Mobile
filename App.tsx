@@ -11,8 +11,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Routes } from './src/constants/Routes';
 import { RootRoutes } from './src/types/navigation.types';
-import MainTabNavigator from './src/navigation/MainTabNavigator';
 import AuthScreen from './src/screens/Auth/AuthScreen';
+import DrawerNavigator from './src/navigation/DrawerNavigator';
 const RootStack = createNativeStackNavigator<RootRoutes>();
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -27,8 +27,8 @@ function App() {
         <RootStack.Navigator screenOptions={{ headerShown: false }}>
           {true ? (
             <RootStack.Screen
-              name={Routes.MainTabs}
-              component={MainTabNavigator}
+              name={Routes.DrawerNavigator}
+              component={DrawerNavigator}
             />
           ) : (
             <RootStack.Screen name={Routes.AuthScreen} component={AuthScreen} />
@@ -39,10 +39,3 @@ function App() {
   );
 }
 export default App;
-// export default function App() {
-//   return (
-//     <View style={{ flex: 1, backgroundColor: 'red' }}>
-//       <Text>TEST</Text>
-//     </View>
-//   );
-// }

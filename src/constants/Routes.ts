@@ -7,5 +7,6 @@ export enum Routes {
   SettingsScreen = 'SettingsScreen',
   DrawerNavigator = 'Drawer',
   FavoritesScreen = 'FavoritesScreen',
-  HomeTab = 'HomeTab',
+  DrawerFakeScreen = 'DrawerFakeScreen',
+  CalendarScreen = 'CalendarScreen',
 }

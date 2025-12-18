@@ -2,19 +2,12 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksList from '../../../components/features/TasksList';
-import Burger from '../../../components/ui/Burger';
-import { DrawerRoutes } from '../../../types/navigation.types';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
 
-interface HomeScreenProps {
-  navigation: DrawerNavigationProp<DrawerRoutes, 'HomeScreen'>;
-}
-const HomeScreen = ({ navigation }: HomeScreenProps) => {
+const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      {/* Calendar можно добавить*/}
-      <Burger onPress={() => navigation.toggleDrawer()} />
       <TasksList />
+      {/* Можно доавить кнопку здесь и рендерить ее по условию */}
     </SafeAreaView>
   );
 };

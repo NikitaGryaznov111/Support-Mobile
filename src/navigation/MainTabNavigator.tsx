@@ -1,14 +1,20 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TouchableWithoutFeedback, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { MainTabsRoutes } from '../types/navigation.types';
 import { Routes } from '../constants/Routes';
-import SearchScreen from '../screens/Main/TabsBottom/SearchScreen';
 import { Colors } from '../constants/Colors';
-import CreateTaskScreen from '../screens/Main/TabsBottom/CreateTaskScreen';
 import SettingsScreen from '../screens/Main/TabsBottom/SettingsScreen';
-import Icon from 'react-native-vector-icons/Ionicons';
-import DrawerNavigator from './DrawerNavigator';
+import HomeScreen from '../screens/Main/TabsBottom/HomeScreen';
+import DrawerFakeScreen from '../screens/Main/TabsBottom/DrawerFakeScreen';
+import CalendarScreen from '../screens/Main/TabsBottom/CalendarScreen';
+// TODO Сделай общий Container
+// TODO Сделай кнопку создания задачи на экране задания и календаря
+// TODO Сделать, чтобы бургер  было доступно и для остальных экранов, которые сейчас вне табов
+
 const MainTabNavigator = () => {
   const Tab = createBottomTabNavigator<MainTabsRoutes>();
   return (
@@ -17,47 +23,68 @@ const MainTabNavigator = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: Colors.BlueD,
-          height: 55,
+          height: 60,
         },
-        tabBarActiveTintColor: Colors.tabActive,
-        tabBarInactiveTintColor: Colors.tabInActive,
-        tabBarShowLabel: false,
+        tabBarActiveTintColor: Colors.White,
+        tabBarInactiveTintColor: Colors.GrayL,
+        tabBarShowLabel: true,
       }}
     >
       <Tab.Screen
-        name={Routes.HomeTab}
-        component={DrawerNavigator}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="calendar" color={color} size={size} />
+        name={Routes.DrawerFakeScreen}
+        component={DrawerFakeScreen}
+        options={({ navigation }) => ({
+          tabBarButton: props => (
+            <TouchableWithoutFeedback
+              accessibilityRole={props.accessibilityRole}
+              accessibilityState={props.accessibilityState}
+              testID={props.testID}
+              onPress={() => (navigation as any).openDrawer()}
+            >
+              <View style={props.style}>
+                <Icon
+                  name="menu"
+                  size={30}
+                  color={
+                    props.accessibilityState?.selected
+                      ? Colors.White
+                      : Colors.GrayL
+                  }
+                />
+              </View>
+            </TouchableWithoutFeedback>
           ),
-          // title: 'Список задач',
+        })}
+      />
+
+      <Tab.Screen
+        name={Routes.HomeScreen}
+        component={HomeScreen}
+        options={{
+          title: 'Задания',
+          tabBarIcon: ({ color }) => (
+            <Icon name="reader-outline" size={27} color={color} />
+          ),
         }}
       />
       <Tab.Screen
-        name={Routes.SearchScreen}
-        component={SearchScreen}
+        name={Routes.CalendarScreen}
+        component={CalendarScreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="search" color={color} size={size} />
+          title: 'Календарь',
+          tabBarIcon: ({ color }) => (
+            <Icon name="calendar-outline" size={27} color={color} />
           ),
         }}
       />
-      <Tab.Screen
-        name={Routes.CreateTaskScreen}
-        component={CreateTaskScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="create" color={color} size={size} />
-          ),
-        }}
-      />
+
       <Tab.Screen
         name={Routes.SettingsScreen}
         component={SettingsScreen}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="settings-sharp" color={color} size={size} />
+          title: 'Настройки',
+          tabBarIcon: ({ color }) => (
+            <Icon name="settings-sharp" color={color} size={27} />
           ),
         }}
       />

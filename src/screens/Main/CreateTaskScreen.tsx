@@ -1,6 +1,6 @@
 // import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import FormCreateTask from '../../../components/features/FormCreateTask';
+import FormCreateTask from '../../components/features/FormCreateTask';
 
 const CreateTaskScreen = () => {
   return (
