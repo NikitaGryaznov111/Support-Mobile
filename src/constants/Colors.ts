@@ -3,6 +3,7 @@ export enum Colors {
   WhiteD = '#d4d4d4ff',
   Blue = '#0016bbad',
   BlueL = '#1852cdff',
+  BlueLL = '#6dc0f3ff',
   primaryTextAuth = '#b1b8d1ff',
   BlueD = '#032560ff',
   GrayL = '#b1b8d1ff',

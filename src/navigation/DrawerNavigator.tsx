@@ -36,6 +36,12 @@ export default function DrawerNavigator() {
           drawerIcon: ({ color }) => (
             <Icon name="heart-outline" size={20} color={color} />
           ),
+          headerShown: true,
+          title: 'Избранное',
+          headerStyle: {
+            backgroundColor: 'transparent',
+            shadowColor: 'transparent',
+          },
         }}
       />
     </Drawer.Navigator>

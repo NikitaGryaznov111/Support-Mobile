@@ -1,54 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
-import {
-  View,
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Text,
-  Alert,
-} from 'react-native';
-import React, { useState } from 'react';
+import { View, Modal, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { Colors } from '../../constants/Colors';
 import Button from './Button';
 
 interface ModalCustomProps {
   isModalActive: boolean;
   closeModal: () => void;
-  data: string[];
-  onSelect: (value: string) => void;
+  children: React.ReactNode;
 }
 export default function ModalCustom({
   isModalActive,
   closeModal,
-  data,
-  onSelect,
-}: ModalCustomProps) {
-  const [selectedItem, setSelectedItem] = useState<string>('');
-  const saveTypeTask = () => {
-    if (!selectedItem) {
-      Alert.alert('Выберите значение');
-      return;
-    }
-    onSelect(selectedItem);
-    closeModal();
-  };
 
-  const renderItem = ({ item }: { item: string }) => {
-    const isSelected = selectedItem === item;
-    return (
-      <TouchableOpacity
-        onPress={() => setSelectedItem(item)}
-        style={isSelected ? styles.selectedItem : null}
-      >
-        <Text
-          style={isSelected ? { color: Colors.White } : { color: '#0d3488ff' }}
-        >
-          {item}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
+  children,
+}: ModalCustomProps) {
   return (
     <Modal
       animationType="slide"
@@ -70,20 +36,7 @@ export default function ModalCustom({
               styleIcon={{ color: '#0d3488ff' }}
             />
           </View>
-
-          <FlatList
-            contentContainerStyle={styles.list}
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={item => item}
-          />
-          <View style={[styles.containerBtnSave]}>
-            <Button
-              styleText={{ color: '#ffffff' }}
-              title="Сохранить"
-              onClick={saveTypeTask}
-            />
-          </View>
+          {children}
         </View>
       </View>
     </Modal>
@@ -106,33 +59,10 @@ const styles = StyleSheet.create({
     paddingVertical: 25,
     borderRadius: 15,
   },
-  containerBtnSave: {
-    backgroundColor: Colors.BlueL,
-    borderRadius: 20,
-    height: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 15,
-    paddingHorizontal: 10,
-  },
+
   containerBtnClose: {
     position: 'absolute',
     right: 10,
     top: 10,
-  },
-  list: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    rowGap: 15,
-  },
-  selectedItem: {
-    backgroundColor: Colors.BlueL,
-    width: 150,
-    paddingVertical: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#0b3ca6ff',
   },
 });

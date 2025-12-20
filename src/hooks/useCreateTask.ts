@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 const useCreateTask = () => {
+  // TODO Поменяй на useReducer
   const [nameTask, setNameTask] = useState<string>('');
   const [descTask, setDescTask] = useState<string>('');
   const [isModalActiveTypesTasks, setIsModalActiveTypesTasks] = useState(false);

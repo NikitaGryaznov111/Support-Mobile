@@ -1,17 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Colors } from '../../constants/Colors';
 import Button from '../ui/Button';
 import { priorityTasks, typesTasks } from '../../data/tasks';
 import useCreateTask from '../../hooks/useCreateTask';
 import { observer } from 'mobx-react-lite';
 import { taskStore } from '../../store/Tasks.store';
-import { useNavigation } from '@react-navigation/native';
-import { Routes } from '../../constants/Routes';
-import { NavigateProps } from '../../types/navigation.types';
 import FormCreateItem from './FormCreateItem';
-const FormCreateTask = () => {
+interface IFormCreateTaskProps {
+  closeForm: () => void;
+}
+const FormCreateTask = ({ closeForm }: IFormCreateTaskProps) => {
   const {
     nameTask,
     setNameTask,
@@ -31,18 +32,11 @@ const FormCreateTask = () => {
     selectedDate,
     setSelectedDate,
   } = useCreateTask();
-  const { navigate } = useNavigation<NavigateProps>();
-
   const saveTask = () => {
-    // if (
-    //   !selectedTypeTask ||
-    //   !selectedPriorityTask ||
-    //   !nameTask ||
-    //   !selectedDate
-    // ) {
-    //   Alert.alert('Заполните поля для создания задачи');
-    //   return;
-    // }
+    if (!nameTask || !selectedDate) {
+      Alert.alert('Заполните название задачи и дату');
+      return;
+    }
 
     taskStore.setTaskCreated({
       type: selectedTypeTask,
@@ -50,12 +44,10 @@ const FormCreateTask = () => {
       name: nameTask,
       desc: descTask,
       date: selectedDate,
-      id: `${new Date()}`,
+      id: uuidv4(),
     });
     resetForm();
-    navigate(Routes.HomeTab, {
-      screen: Routes.HomeScreen,
-    });
+    closeForm();
   };
 
   return (
@@ -64,7 +56,6 @@ const FormCreateTask = () => {
         mode="modal"
         label="Тип задачи"
         data={typesTasks}
-        typeModal="typeTasks"
         selectedItem={selectedTypeTask}
         isModalActive={isModalActiveTypesTasks}
         onSelect={setSelectedTypeTask}
@@ -76,7 +67,6 @@ const FormCreateTask = () => {
         mode="modal"
         label="Приоритет"
         data={priorityTasks}
-        typeModal="priorityTasks"
         selectedItem={selectedPriorityTask}
         isModalActive={isModalActivePriorityTasks}
         onSelect={setSelectedPriorityTask}
@@ -86,7 +76,7 @@ const FormCreateTask = () => {
       />
       <FormCreateItem
         mode="textInput"
-        label="Имя задачи"
+        label="Имя задачи *"
         value={nameTask}
         setValue={setNameTask}
       />
@@ -97,9 +87,8 @@ const FormCreateTask = () => {
         setValue={setDescTask}
       />
       <FormCreateItem
-        mode="modal"
-        label="Дата"
-        typeModal="calendar"
+        mode="calendar"
+        label="Дата *"
         selectedItem={selectedDate}
         isModalActive={isModalActiveCalendar}
         onSelect={setSelectedDate}
@@ -112,13 +101,13 @@ const FormCreateTask = () => {
           title="Очистить форму"
           onClick={resetForm}
           styleText={{ color: '#ffffff' }}
-          styleView={styles.containerBtn}
+          styleView={styles.button}
         />
         <Button
           title="Сохранить"
           onClick={saveTask}
           styleText={{ color: '#ffffff' }}
-          styleView={styles.containerBtn}
+          styleView={styles.button}
         />
       </View>
     </View>
@@ -129,18 +118,8 @@ export default observer(FormCreateTask);
 
 const styles = StyleSheet.create({
   form: {
-    alignItems: 'center',
-    paddingHorizontal: 35,
-    paddingTop: 20,
+    padding: 10,
   },
-  container: {
-    marginBottom: 10,
-    width: '100%',
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-    borderBottomColor: Colors.BlueD,
-  },
-
   dropDown: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -160,7 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
-  containerBtn: {
+  button: {
     backgroundColor: Colors.BlueL,
     borderRadius: 20,
     height: 35,

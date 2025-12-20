@@ -2,12 +2,13 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksList from '../../../components/features/TasksList';
+import ButtonAddTask from '../../../components/features/ButtonAddTask';
 
 const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TasksList />
-      {/* Можно доавить кнопку здесь и рендерить ее по условию */}
+      <ButtonAddTask />
     </SafeAreaView>
   );
 };
