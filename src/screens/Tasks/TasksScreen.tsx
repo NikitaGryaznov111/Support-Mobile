@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksList from '../../../components/features/TasksList';
 import ButtonAddTask from '../../../components/features/ButtonAddTask';
 
-const HomeScreen = () => {
+const TasksScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <TasksList />
@@ -13,4 +13,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default TasksScreen;

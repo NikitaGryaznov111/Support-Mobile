@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,12 +7,10 @@ import { MainTabsRoutes } from '../types/navigation.types';
 import { Routes } from '../constants/Routes';
 import { Colors } from '../constants/Colors';
 import SettingsScreen from '../screens/Main/TabsBottom/SettingsScreen';
-import HomeScreen from '../screens/Main/TabsBottom/HomeScreen';
 import DrawerFakeScreen from '../screens/Main/TabsBottom/DrawerFakeScreen';
 import CalendarScreen from '../screens/Main/TabsBottom/CalendarScreen';
+import TasksNavigatorStack from '../screens/Main/TabsBottom/TasksNavigatorStack';
 // TODO Сделай общий Container
-// TODO Сделай кнопку создания задачи на экране задания и календаря
-// TODO Сделать, чтобы бургер  было доступно и для остальных экранов, которые сейчас вне табов
 
 const MainTabNavigator = () => {
   const Tab = createBottomTabNavigator<MainTabsRoutes>();
@@ -58,8 +55,8 @@ const MainTabNavigator = () => {
       />
 
       <Tab.Screen
-        name={Routes.HomeScreen}
-        component={HomeScreen}
+        name={Routes.TasksScreen}
+        component={TasksNavigatorStack}
         options={{
           title: 'Задания',
           tabBarIcon: ({ color }) => (

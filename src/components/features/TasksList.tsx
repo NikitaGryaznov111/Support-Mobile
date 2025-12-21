@@ -1,7 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { taskStore } from '../../store/Tasks.store';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { TTask } from '../../types/tasks.types';
 import TaskItem from './TaskItem';
 import { Colors } from '../../constants/Colors';
@@ -11,19 +18,34 @@ const TasksList = () => {
     return <TaskItem item={item} />;
   };
   const tasks = taskStore.tasksList;
+  const tasksCompleted = taskStore.completedTasks;
   const taskCount = tasks.length;
-
-  return tasks.length ? (
-    <FlatList
-      renderItem={renderItem}
-      data={tasks}
-      keyExtractor={item => item.id}
-      extraData={taskCount}
-    />
-  ) : (
-    <View style={styles.container}>
-      <Text>Отсутствуют добавленные задачи</Text>
-    </View>
+  // TODO продолжи работать с выполненными заданиями + сделай анимацию кнопки
+  // Экран заданий придется делать стеком, чтобы внутри него был экран выполненных задач
+  return (
+    <>
+      {tasks.length ? (
+        <FlatList
+          renderItem={renderItem}
+          data={tasks}
+          keyExtractor={item => item.id}
+          extraData={taskCount}
+        />
+      ) : (
+        <View style={styles.container}>
+          <Text>Отсутствуют добавленные задачи</Text>
+        </View>
+      )}
+      {tasksCompleted.length && (
+        <TouchableOpacity>
+          <Text
+            style={{ textDecorationColor: 'underLine', color: Colors.Gray }}
+          >
+            Посмотреть выполненные задачи
+          </Text>
+        </TouchableOpacity>
+      )}
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 export enum Routes {
   AuthScreen = 'AuthScreen',
   MainTabs = 'MainTabs',
-  HomeScreen = 'HomeScreen',
+  TasksScreen = 'TasksScreen',
   SearchScreen = 'SearchScreen',
   CreateTaskScreen = 'CreateTaskScreen',
   SettingsScreen = 'SettingsScreen',
@@ -9,4 +9,5 @@ export enum Routes {
   FavoritesScreen = 'FavoritesScreen',
   DrawerFakeScreen = 'DrawerFakeScreen',
   CalendarScreen = 'CalendarScreen',
+  CompletedTasksScreen = 'CompletedTasksScreen',
 }

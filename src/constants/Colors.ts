@@ -7,6 +7,8 @@ export enum Colors {
   primaryTextAuth = '#b1b8d1ff',
   BlueD = '#032560ff',
   GrayL = '#b1b8d1ff',
+  GrayLL = '#c9cbd5ff',
+
   BlueDD = '#021d4bff',
   GrayD = 'rgba(40, 68, 119, 0.59)',
   BlueDDD = '#01163aff',

@@ -2,8 +2,8 @@ import { makeAutoObservable } from 'mobx';
 import { TTask } from '../types/tasks.types';
 class TaskStore {
   tasksList: TTask[] = [];
-  // массив добавленных в избранное
   tasksInFavorites: TTask[] = [];
+  completedTasks: TTask[] = [];
   constructor() {
     makeAutoObservable(this);
   }
@@ -20,11 +20,17 @@ class TaskStore {
   setTasksInFavorites(task: TTask) {
     const index = this.tasksInFavorites.findIndex(t => t.id === task.id);
     if (index !== -1) {
-      // Удаляем, если есть
       this.tasksInFavorites.splice(index, 1);
     } else {
-      // Добавляем, если нет
       this.tasksInFavorites.push(task);
+    }
+  }
+  setCompletedTasks(task: TTask) {
+    const index = this.completedTasks.findIndex(t => t.id === task.id);
+    if (index !== -1) {
+      this.completedTasks.splice(index, 1);
+    } else {
+      this.completedTasks.push(task);
     }
   }
 }

@@ -5,14 +5,17 @@ export type RootRoutes = {
   AuthScreen: undefined;
   Drawer: undefined;
 };
-
+export type DrawerRoutes = {
+  MainTabNavigator: undefined;
+};
 export type MainTabsRoutes = {
   DrawerFakeScreen: undefined;
-  HomeScreen: undefined;
+  TasksScreen: undefined;
   CalendarScreen: undefined;
   SettingsScreen: undefined;
 };
-export type DrawerRoutes = {
-  MainTabNavigator: undefined;
+export type TasksStackRoutes = {
+  TasksScreen: undefined;
+  CompletedTasksScreen: undefined;
 };
 export type NavigateProps = NativeStackNavigationProp<MainTabsRoutes>;

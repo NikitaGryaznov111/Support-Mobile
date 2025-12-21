@@ -19,20 +19,25 @@ const TaskItem = ({ item }: TaskItemProps) => {
   // TODO создай кастомную модалку, здесь используй как предупреждение при удалении задачи
   const [isFlag, setIsFlag] = useState(false);
   const { name, type, desc, date, id } = item;
-  const { tasksInFavorites } = taskStore;
   const saveInFavorites = (task: TTask) => {
     taskStore.setTasksInFavorites(task);
   };
   const removeTask = (id: string) => {
     taskStore.deleteTask(id);
   };
-  const isFavorites = tasksInFavorites.some(task => task.id === id);
+  const onChecked = () => {
+    setIsChecked(prev => !prev);
+    taskStore.setCompletedTasks(item)
+  };
+  const isFavorites = taskStore.tasksInFavorites.some(task => task.id === id);
 
   return (
-    <View style={[styles.item, isChecked && { backgroundColor: Colors.Blue }]}>
+    <View
+      style={[styles.item, isChecked && { backgroundColor: Colors.GrayLL }]}
+    >
       <View style={[styles.leftLine, isChecked && { opacity: 1 }]} />
       <View style={styles.content}>
-        <Checkbox checked={isChecked} onChecked={setIsChecked} />
+        <Checkbox checked={isChecked} onChecked={onChecked} />
         <TouchableOpacity
           style={styles.textContainer}
           onPress={() => setIsExpanded(prev => !prev)}
@@ -79,6 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 0.5,
     borderBottomColor: Colors.Gray,
+    alignItems: 'center',
   },
   leftLine: {
     width: 5,
