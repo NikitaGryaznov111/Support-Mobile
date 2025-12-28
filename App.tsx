@@ -13,6 +13,7 @@ import { Routes } from './src/constants/Routes';
 import { RootRoutes } from './src/types/navigation.types';
 import AuthScreen from './src/screens/Auth/AuthScreen';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
+import Toast from 'react-native-toast-message';
 const RootStack = createNativeStackNavigator<RootRoutes>();
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -35,6 +36,7 @@ function App() {
           )}
         </RootStack.Navigator>
       </NavigationContainer>
+      <Toast />
     </SafeAreaProvider>
   );
 }

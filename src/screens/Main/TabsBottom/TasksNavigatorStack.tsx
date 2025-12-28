@@ -8,7 +8,10 @@ import TasksScreen from '../../Tasks/TasksScreen';
 const TasksNavigatorStack = () => {
   const Stack = createNativeStackNavigator<TasksStackRoutes>();
   return (
-    <Stack.Navigator initialRouteName={Routes.TasksScreen}>
+    <Stack.Navigator
+      initialRouteName={Routes.TasksScreen}
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name={Routes.TasksScreen} component={TasksScreen} />
       <Stack.Screen
         name={Routes.CompletedTasksScreen}

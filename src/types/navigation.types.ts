@@ -18,4 +18,4 @@ export type TasksStackRoutes = {
   TasksScreen: undefined;
   CompletedTasksScreen: undefined;
 };
-export type NavigateProps = NativeStackNavigationProp<MainTabsRoutes>;
+export type TasksNavigateProps = NativeStackNavigationProp<TasksStackRoutes>;

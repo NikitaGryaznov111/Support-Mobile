@@ -10,7 +10,7 @@ const ButtonAddTask = () => {
   const [isModalActive, setIsModalActive] = useState(false);
 
   return (
-    <View style={{ marginRight: 20, marginTop: 'auto' }}>
+    <View style={{ marginRight: 20 }}>
       <Button
         icon="add"
         onClick={() => setIsModalActive(true)}

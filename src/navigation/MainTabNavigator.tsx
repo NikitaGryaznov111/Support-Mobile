@@ -26,6 +26,7 @@ const MainTabNavigator = () => {
         tabBarInactiveTintColor: Colors.GrayL,
         tabBarShowLabel: true,
       }}
+      initialRouteName={Routes.TasksScreen}
     >
       <Tab.Screen
         name={Routes.DrawerFakeScreen}

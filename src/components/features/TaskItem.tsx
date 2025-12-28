@@ -2,12 +2,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TTask } from '../../types/tasks.types';
 import { Colors } from '../../constants/Colors';
 import Checkbox from '../ui/Checkbox';
 import { taskStore } from '../../store/Tasks.store';
-import { observer } from 'mobx-react-lite';
 // TODO Надо его улучшить, что-то мне не нравится вид
 interface TaskItemProps {
   item: TTask;
@@ -16,7 +16,8 @@ const TaskItem = ({ item }: TaskItemProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   // TODO isFlag тоже обрабатывай через mobX
-  // TODO создай кастомную модалку, здесь используй как предупреждение при удалении задачи
+  // TODO создай  модалку - toast, здесь используй как предупреждение при удалении задачи
+  // TODO Измени дизайн кнопки удаления задачи
   const [isFlag, setIsFlag] = useState(false);
   const { name, type, desc, date, id } = item;
   const saveInFavorites = (task: TTask) => {
@@ -27,7 +28,7 @@ const TaskItem = ({ item }: TaskItemProps) => {
   };
   const onChecked = () => {
     setIsChecked(prev => !prev);
-    taskStore.setCompletedTasks(item)
+    taskStore.setCompletedTasks(item);
   };
   const isFavorites = taskStore.tasksInFavorites.some(task => task.id === id);
 
@@ -56,16 +57,16 @@ const TaskItem = ({ item }: TaskItemProps) => {
           </Text>
           <TouchableOpacity onPress={() => setIsFlag(prev => !prev)}>
             <Icon
-              name="flag"
+              name="flag-outline"
               size={20}
-              color={isFlag ? Colors.Red : Colors.WhiteD}
+              color={isFlag ? Colors.Red : Colors.Gray}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => saveInFavorites(item)}>
             <Icon
-              name="star"
+              name="star-outline"
               size={20}
-              color={isFavorites ? Colors.Gold : Colors.WhiteD}
+              color={isFavorites ? Colors.Gold : Colors.Gray}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => removeTask(id)}>

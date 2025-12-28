@@ -18,6 +18,7 @@ interface ButtonProps {
   styleIcon?: { color: string };
   styleView?: ViewStyle;
 }
+// TODO исправь везде onClick на onPress
 const Button = ({
   title,
   onClick,

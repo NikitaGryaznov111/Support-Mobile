@@ -4,7 +4,7 @@ import React from 'react';
 import { Colors } from '../../constants/Colors';
 import Button from './Button';
 
-interface ModalCustomProps {
+interface IModalCustomProps {
   isModalActive: boolean;
   closeModal: () => void;
   children: React.ReactNode;
@@ -14,7 +14,7 @@ export default function ModalCustom({
   closeModal,
 
   children,
-}: ModalCustomProps) {
+}: IModalCustomProps) {
   return (
     <Modal
       animationType="slide"

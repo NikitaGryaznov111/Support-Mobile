@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import { Alert, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Colors } from '../../constants/Colors';
@@ -9,6 +9,7 @@ import useCreateTask from '../../hooks/useCreateTask';
 import { observer } from 'mobx-react-lite';
 import { taskStore } from '../../store/Tasks.store';
 import FormCreateItem from './FormCreateItem';
+import { toAst } from '../../utils/toAst';
 interface IFormCreateTaskProps {
   closeForm: () => void;
 }
@@ -34,7 +35,7 @@ const FormCreateTask = ({ closeForm }: IFormCreateTaskProps) => {
   } = useCreateTask();
   const saveTask = () => {
     if (!nameTask || !selectedDate) {
-      Alert.alert('Заполните название задачи и дату');
+      toAst('Заполните название задачи и дату');
       return;
     }
 

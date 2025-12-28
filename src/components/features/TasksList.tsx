@@ -2,65 +2,70 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { taskStore } from '../../store/Tasks.store';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { TTask } from '../../types/tasks.types';
 import TaskItem from './TaskItem';
 import { Colors } from '../../constants/Colors';
+import Button from '../ui/Button';
+import { useNavigation } from '@react-navigation/native';
+import { Routes } from '../../constants/Routes';
+import { TasksNavigateProps } from '../../types/navigation.types';
+// TODO продолжи работать с выполненными заданиями + сделай анимацию кнопки
 
 const TasksList = () => {
-  const renderItem = ({ item }: { item: TTask }) => {
-    return <TaskItem item={item} />;
-  };
+  const { navigate } = useNavigation<TasksNavigateProps>();
   const tasks = taskStore.tasksList;
   const tasksCompleted = taskStore.completedTasks;
   const taskCount = tasks.length;
-  // TODO продолжи работать с выполненными заданиями + сделай анимацию кнопки
-  // Экран заданий придется делать стеком, чтобы внутри него был экран выполненных задач
-  return (
-    <>
-      {tasks.length ? (
-        <FlatList
-          renderItem={renderItem}
-          data={tasks}
-          keyExtractor={item => item.id}
-          extraData={taskCount}
+
+  const renderItem = ({ item }: { item: TTask }) => {
+    return <TaskItem item={item} />;
+  };
+  console.log(tasksCompleted);
+
+  const renderFooter = () => {
+    return tasksCompleted.length ? (
+      <Button
+        onClick={() => navigate(Routes.CompletedTasksScreen)}
+        title="Посмотреть выполненные задачи"
+        styleText={{ color: Colors.Gray }}
+        styleView={styles.footerButton}
+      />
+    ) : null;
+  };
+
+  return tasks.length ? (
+    <FlatList
+      renderItem={renderItem}
+      data={tasks}
+      keyExtractor={item => item.id}
+      extraData={taskCount}
+      ListFooterComponent={renderFooter}
+    />
+  ) : (
+    <View style={styles.emptyContainer}>
+      <Text style={{ fontWeight: '500' }}>Отсутствуют добавленные задачи</Text>
+      {tasksCompleted.length ? (
+        <Button
+          onClick={() => navigate(Routes.CompletedTasksScreen)}
+          title="Посмотреть выполненные задачи"
+          styleText={{ color: Colors.Gray }}
+          styleView={styles.footerButton}
         />
-      ) : (
-        <View style={styles.container}>
-          <Text>Отсутствуют добавленные задачи</Text>
-        </View>
-      )}
-      {tasksCompleted.length && (
-        <TouchableOpacity>
-          <Text
-            style={{ textDecorationColor: 'underLine', color: Colors.Gray }}
-          >
-            Посмотреть выполненные задачи
-          </Text>
-        </TouchableOpacity>
-      )}
-    </>
+      ) : null}
+    </View>
   );
 };
 
 export default observer(TasksList);
 const styles = StyleSheet.create({
-  container: {
+  emptyContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    rowGap: 10,
   },
-  btn: {
-    backgroundColor: Colors.BlueL,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
+  footerButton: {
+    alignItems: 'center',
+    marginTop: 10,
   },
 });
