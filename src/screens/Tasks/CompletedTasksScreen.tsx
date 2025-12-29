@@ -4,13 +4,12 @@ import { observer } from 'mobx-react-lite';
 import { taskStore } from '../../store/Tasks.store';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TTask } from '../../types/tasks.types';
-import TaskItem from '../../components/features/TaskItem';
-// TODO Попробуй сделать TaskItem универсальным, чтобы подходил и для выполненных задач
+import CompletedTaskItem from '../../components/features/CompletedTaskItem';
 
 const CompletedTasksScreen = () => {
   const tasksCompleted = taskStore.completedTasks;
   const renderItem = ({ item }: { item: TTask }) => {
-    return <TaskItem item={item} />;
+    return <CompletedTaskItem item={item} />;
   };
 
   return (

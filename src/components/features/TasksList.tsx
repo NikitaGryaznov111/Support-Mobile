@@ -21,7 +21,7 @@ const TasksList = () => {
   const renderItem = ({ item }: { item: TTask }) => {
     return <TaskItem item={item} />;
   };
-  console.log(tasksCompleted);
+console.log(tasksCompleted);
 
   const renderFooter = () => {
     return tasksCompleted.length ? (

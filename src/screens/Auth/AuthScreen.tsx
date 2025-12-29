@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   activeButton: {
     color: '#ffffff',
     borderBottomWidth: 2,
-    borderBottomColor: Colors.primaryBgBtn,
+    borderBottomColor: Colors.Blue,
     paddingBottom: 3,
   },
   bottomLine: {
