@@ -3,11 +3,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import React from 'react';
 import { Colors } from '../../constants/Colors';
 
-interface CheckboxProps {
+interface ICheckboxProps {
   checked: boolean;
   onChecked: () => void;
 }
-const Checkbox = ({ checked, onChecked }: CheckboxProps) => {
+const Checkbox = ({ checked, onChecked }: ICheckboxProps) => {
   return (
     <TouchableOpacity
       style={[styles.checkbox, checked && styles.checked]}

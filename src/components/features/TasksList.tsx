@@ -15,16 +15,14 @@ import { TasksNavigateProps } from '../../types/navigation.types';
 const TasksList = () => {
   const { navigate } = useNavigation<TasksNavigateProps>();
   const tasks = taskStore.tasksList;
-  const tasksCompleted = taskStore.completedTasks;
-  const taskCount = tasks.length;
+  const {completedTasks} = taskStore;
 
   const renderItem = ({ item }: { item: TTask }) => {
     return <TaskItem item={item} />;
   };
-console.log(tasksCompleted);
-
+    
   const renderFooter = () => {
-    return tasksCompleted.length ? (
+    return completedTasks.length ? (
       <Button
         onClick={() => navigate(Routes.CompletedTasksScreen)}
         title="Посмотреть выполненные задачи"
@@ -39,13 +37,13 @@ console.log(tasksCompleted);
       renderItem={renderItem}
       data={tasks}
       keyExtractor={item => item.id}
-      extraData={taskCount}
+      extraData={completedTasks.length}
       ListFooterComponent={renderFooter}
     />
   ) : (
     <View style={styles.emptyContainer}>
       <Text style={{ fontWeight: '500' }}>Отсутствуют добавленные задачи</Text>
-      {tasksCompleted.length ? (
+      {completedTasks.length ? (
         <Button
           onClick={() => navigate(Routes.CompletedTasksScreen)}
           title="Посмотреть выполненные задачи"
