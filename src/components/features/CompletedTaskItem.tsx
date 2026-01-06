@@ -13,7 +13,8 @@ const CompletedTaskItem = ({ item }: ICompletedTaskItemProps) => {
   const { name, date } = item;
   const onChecked = () => {
     setIsCompleted(prev => !prev);
-    taskStore.setCompletedTasks(item);
+    taskStore.toggleCompletedTasks(item);
+    taskStore.toggleTasksList(item);
   };
   return (
     <View style={styles.item}>

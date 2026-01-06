@@ -8,16 +8,16 @@ class TaskStore {
     makeAutoObservable(this);
   }
 
-  setTaskCreated(task: TTask) {
-    this.tasksList.push(task);
-  }
-  deleteTask(id: string) {
-    const index = this.tasksList.findIndex(t => t.id === id);
-    if (index > -1) {
+  toggleTasksList(task: TTask) {
+    const index = this.tasksList.findIndex(t => t.id === task.id);
+    if (index !== -1) {
       this.tasksList.splice(index, 1);
+    } else {
+      this.tasksList.push(task);
     }
   }
-  setTasksInFavorites(task: TTask) {
+
+  toggleTasksInFavorites(task: TTask) {
     const index = this.tasksInFavorites.findIndex(t => t.id === task.id);
     if (index !== -1) {
       this.tasksInFavorites.splice(index, 1);
@@ -25,7 +25,7 @@ class TaskStore {
       this.tasksInFavorites.push(task);
     }
   }
-  setCompletedTasks(task: TTask) {
+  toggleCompletedTasks(task: TTask) {
     const index = this.completedTasks.findIndex(t => t.id === task.id);
     if (index !== -1) {
       this.completedTasks.splice(index, 1);

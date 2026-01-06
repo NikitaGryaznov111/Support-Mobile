@@ -19,23 +19,30 @@ const TaskItem = ({ item }: TaskItemProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFlag, setIsFlag] = useState(false);
   const { name, type, desc, date, id } = item;
-  
+
   const isCompleted = taskStore.completedTasks.some(task => task.id === id);
   const isFavorites = taskStore.tasksInFavorites.some(task => task.id === id);
 
   const saveInFavorites = (task: TTask) => {
-    taskStore.setTasksInFavorites(task);
+    taskStore.toggleTasksInFavorites(task);
   };
-  const removeTask = (id: string) => {
-    taskStore.deleteTask(id);
+  const removeTask = (item: TTask) => {
+    taskStore.toggleTasksList(item);
   };
   const onChecked = () => {
-    taskStore.setCompletedTasks(item);
+    taskStore.toggleCompletedTasks(item);
+    taskStore.toggleTasksList(item);
   };
+  console.log(taskStore.tasksList);
 
   return (
     <View
-      style={[styles.item, isCompleted && { backgroundColor: Colors.GrayLL }]}
+      style={[
+        styles.item,
+        isCompleted && {
+          backgroundColor: Colors.GrayLL,
+        },
+      ]}
     >
       <Checkbox checked={isCompleted} onChecked={onChecked} />
       <TouchableOpacity
@@ -64,7 +71,7 @@ const TaskItem = ({ item }: TaskItemProps) => {
         />
         <Button
           icon="remove"
-          onClick={() => removeTask(id)}
+          onClick={() => removeTask(item)}
           size={20}
           styleIcon={{ color: Colors.Gray }}
         />
@@ -79,7 +86,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     borderBottomWidth: 0.5,
-    borderBottomColor: Colors.GrayLL,
+    borderBottomColor: Colors.Gray,
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: 12,

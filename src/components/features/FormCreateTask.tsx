@@ -39,7 +39,7 @@ const FormCreateTask = ({ closeForm }: IFormCreateTaskProps) => {
       return;
     }
 
-    taskStore.setTaskCreated({
+    taskStore.toggleTasksList({
       type: selectedTypeTask,
       priority: selectedPriorityTask,
       name: nameTask,
