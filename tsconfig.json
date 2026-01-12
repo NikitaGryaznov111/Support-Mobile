@@ -3,6 +3,6 @@
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["**/node_modules", "**/Pods"],
    "compilerOptions": {
-    "typeRoots": ["./src/types", "./node_modules/@types"]
+    "typeRoots": ["src/shared/types", "./node_modules/@types"]
   }
 }

@@ -9,14 +9,15 @@ import { StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Routes } from './src/constants/Routes';
-import { RootRoutes } from './src/types/navigation.types';
-import AuthScreen from './src/screens/Auth/AuthScreen';
-import DrawerNavigator from './src/navigation/DrawerNavigator';
+import { Routes } from './src/shared/config/routes';
+import { RootRoutes } from './src/shared/types/navigation.types';
+import DrawerNavigator from './src/app/navigation/DrawerNavigator';
 import Toast from 'react-native-toast-message';
+import AuthScreen from './src/pages/auth-screen';
 const RootStack = createNativeStackNavigator<RootRoutes>();
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  // TODO вынеси в AppStackNavigator
   return (
     <SafeAreaProvider>
       <NavigationContainer>

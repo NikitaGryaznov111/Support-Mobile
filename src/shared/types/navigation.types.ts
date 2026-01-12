@@ -1,0 +1,29 @@
+// типизация маршрутов и их параметров
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Routes } from '../config/routes';
+
+export type RootRoutes = {
+  AuthScreen: undefined;
+  Drawer: undefined;
+};
+export type DrawerRoutes = {
+  MainTabNavigator: undefined;
+};
+export type BottomTabsRoutes = {
+  DrawerFakeScreen: undefined;
+  TasksScreen: undefined;
+  CalendarScreen: undefined;
+  SettingsScreen: undefined;
+};
+export type TasksStackRoutes = {
+  TasksScreen: undefined;
+  CompletedTasksScreen: undefined;
+};
+export type TasksNavigateProps = NativeStackNavigationProp<
+  TasksStackRoutes,
+  Routes.TasksScreen
+>;
+export type CompletedTasksNavigateProps = NativeStackNavigationProp<
+  TasksStackRoutes,
+  Routes.CompletedTasksScreen
+>;
