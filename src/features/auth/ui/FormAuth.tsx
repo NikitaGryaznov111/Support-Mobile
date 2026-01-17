@@ -41,7 +41,7 @@ const FormAuth = ({ mode }: IFormAuthProps) => {
         <Button
           styleText={{ color: Colors.White, fontWeight: '600' }}
           title={mode === 'signIn' ? 'SIGN IN' : 'SIGN UP'}
-          onClick={() => {}}
+          onPress={() => {}}
         />
       </View>
     </View>

@@ -8,19 +8,19 @@ import { Colors } from '../../../shared/config/colors';
 const ButtonAddTask = () => {
   const [isModalActive, setIsModalActive] = useState(false);
   const scaleValue = useRef(new Animated.Value(0)).current;
-  const opacityValue = useRef(new Animated.Value(0.1)).current;
+  const opacityValue = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     const pulse = Animated.sequence([
       Animated.parallel([
         Animated.timing(scaleValue, {
           toValue: 1,
-          duration: 1500,
+          duration: 2500,
           useNativeDriver: true,
         }),
         Animated.timing(opacityValue, {
           toValue: 0,
-          duration: 1500,
+          duration: 2500,
           useNativeDriver: true,
         }),
       ]),
@@ -31,29 +31,31 @@ const ButtonAddTask = () => {
   }, [scaleValue, opacityValue]);
 
   return (
-    <View style={styles.container}>
-      <Animated.View
-        style={[
-          styles.animatedRing,
-          {
-            transform: [{ scale: scaleValue }],
-            opacity: opacityValue,
-          },
-        ]}
-      />
-      <Button
-        icon="add"
-        onClick={() => setIsModalActive(true)}
-        styleIcon={{ color: Colors.White }}
-        size={20}
-        styleView={styles.button}
-      />
-      <ModalCustom
-        isModalActive={isModalActive}
-        closeModal={() => setIsModalActive(false)}
-      >
-        <Form closeForm={() => setIsModalActive(false)} />
-      </ModalCustom>
+    <View style={styles.outerContainer}>
+      <View style={styles.container}>
+        <Animated.View
+          style={[
+            styles.animatedRing,
+            {
+              transform: [{ scale: scaleValue }],
+              opacity: opacityValue,
+            },
+          ]}
+        />
+        <Button
+          icon="add"
+          onPress={() => setIsModalActive(true)}
+          styleIcon={{ color: Colors.White }}
+          size={20}
+          styleView={styles.button}
+        />
+        <ModalCustom
+          isModalActive={isModalActive}
+          closeModal={() => setIsModalActive(false)}
+        >
+          <Form closeForm={() => setIsModalActive(false)} />
+        </ModalCustom>
+      </View>
     </View>
   );
 };
@@ -61,6 +63,10 @@ const ButtonAddTask = () => {
 export default ButtonAddTask;
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
   container: {
     marginRight: 30,
     alignSelf: 'flex-end',
@@ -68,9 +74,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   animatedRing: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     backgroundColor: Colors.BlueDD,
     position: 'absolute',
   },

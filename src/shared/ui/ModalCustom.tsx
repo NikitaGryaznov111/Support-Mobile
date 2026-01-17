@@ -14,6 +14,7 @@ export default function ModalCustom({
   closeModal,
   children,
 }: IModalCustomProps) {
+  console.log('рендер ModalCustom');
   return (
     <Modal
       animationType="slide"
@@ -29,7 +30,7 @@ export default function ModalCustom({
         <View style={styles.content}>
           <View style={[styles.containerBtnClose]}>
             <Button
-              onClick={closeModal}
+              onPress={closeModal}
               icon="close"
               size={20}
               styleIcon={{ color: '#0d3488ff' }}

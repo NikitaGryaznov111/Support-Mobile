@@ -1,3 +1,7 @@
+export type TCategoriesTasks = {
+  title: string;
+  id: number;
+};
 export type TTask = {
   type: string;
   priority: string;

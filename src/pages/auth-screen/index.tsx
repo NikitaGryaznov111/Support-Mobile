@@ -10,7 +10,7 @@ const AuthScreen = () => {
 
   return (
     <ImageBackground
-      source={require('../../assets/image/backgroundAuth.jpg')}
+      source={require('../../shared/assets/backgroundAuth.jpg')}
       style={styles.background}
     >
       <View style={styles.overlay}>
@@ -19,25 +19,25 @@ const AuthScreen = () => {
           <View style={styles.buttons}>
             <Button
               title="SIGN IN"
-              onClick={() => {
+              onPress={() => {
                 setMode('signIn');
               }}
               styleText={[
                 mode === 'signIn'
                   ? styles.activeButton
-                  : { color: Colors.primaryTextAuth },
+                  : { color: Colors.BlueD },
                 { fontWeight: '500' },
               ]}
             />
             <Button
               title="SIGN UP"
-              onClick={() => {
+              onPress={() => {
                 setMode('signUp');
               }}
               styleText={[
                 mode === 'signUp'
                   ? styles.activeButton
-                  : { color: Colors.primaryTextAuth },
+                  : { color: Colors.BlueD },
                 { fontWeight: '500' },
               ]}
             />

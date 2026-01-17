@@ -10,8 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../shared/config/routes';
 import { TasksNavigateProps } from '../../../shared/types/navigation.types';
 import { taskStore } from '../model/task.store';
-// TODO продолжи работать с выполненными заданиями + сделай анимацию кнопки
-
+// TODO МОЖНО ЕМУ ПРИНИМАТЬ ДЖЕНЕРИК, РАЗНЫЙ ТИП СПИСКА ЗАДАЧ, ЕСЛИ КАЖДЫЙ ТИП БУДЕТ РАЗНОЙ СТРУКТОРОЙ ДАННЫХ. НО ЭТО ВРЯД ЛИ
 const TasksList = () => {
   const { navigate } = useNavigation<TasksNavigateProps>();
   const tasks = taskStore.tasksList;
@@ -24,7 +23,7 @@ const TasksList = () => {
   const renderFooter = () => {
     return completedTasks.length ? (
       <Button
-        onClick={() => navigate(Routes.CompletedTasksScreen)}
+        onPress={() => navigate(Routes.CompletedTasksScreen)}
         title="Посмотреть выполненные задачи"
         styleText={{ color: Colors.Gray }}
         styleView={styles.footerButton}
@@ -45,7 +44,7 @@ const TasksList = () => {
       <Text style={{ fontWeight: '500' }}>Отсутствуют добавленные задачи</Text>
       {completedTasks.length ? (
         <Button
-          onClick={() => navigate(Routes.CompletedTasksScreen)}
+          onPress={() => navigate(Routes.CompletedTasksScreen)}
           title="Посмотреть выполненные задачи"
           styleText={{ color: Colors.Gray }}
           styleView={styles.footerButton}

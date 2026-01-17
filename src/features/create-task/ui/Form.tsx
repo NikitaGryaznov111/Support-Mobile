@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
+import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
 import { Colors } from '../../../shared/config/colors';
 import Button from '../../../shared/ui/Button';
 import useCreateTask from '../lib/useCreateTask';
-import { observer } from 'mobx-react-lite';
 import { toAst } from '../../../shared/lib/toAst';
 import { taskStore } from '../../../entities/task/model/task.store';
 import {
@@ -36,13 +36,14 @@ const Form = ({ closeForm }: IFormProps) => {
     selectedDate,
     setSelectedDate,
   } = useCreateTask();
+
   const saveTask = () => {
     if (!nameTask || !selectedDate) {
       toAst('Заполните название задачи и дату');
       return;
     }
 
-    taskStore.toggleTasksList({
+    taskStore.setTasksList({
       type: selectedTypeTask,
       priority: selectedPriorityTask,
       name: nameTask,
@@ -103,14 +104,14 @@ const Form = ({ closeForm }: IFormProps) => {
       <View style={styles.buttons}>
         <Button
           title="Очистить форму"
-          onClick={resetForm}
-          styleText={{ color: '#ffffff' }}
+          onPress={resetForm}
+          styleText={{ color: Colors.White }}
           styleView={styles.button}
         />
         <Button
           title="Сохранить"
-          onClick={saveTask}
-          styleText={{ color: '#ffffff' }}
+          onPress={saveTask}
+          styleText={{ color: Colors.White }}
           styleView={styles.button}
         />
       </View>

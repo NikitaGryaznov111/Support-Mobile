@@ -18,6 +18,7 @@ const RootStack = createNativeStackNavigator<RootRoutes>();
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
   // TODO вынеси в AppStackNavigator
+  // TODO подумай над созданием обобщённого (generic) компонента
   return (
     <SafeAreaProvider>
       <NavigationContainer>

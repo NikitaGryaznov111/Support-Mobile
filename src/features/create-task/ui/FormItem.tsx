@@ -12,6 +12,7 @@ import { Colors } from '../../../shared/config/colors';
 import TextInputCustom from '../../../shared/ui/TextInputCustom';
 import ModalCustom from '../../../shared/ui/ModalCustom';
 import CalendarCustom from './CalendarCustom';
+import { TCategoriesTasks } from '../../../shared/types/tasks.types';
 
 interface IFormItemProps {
   mode: 'textInput' | 'modal' | 'calendar';
@@ -20,13 +21,14 @@ interface IFormItemProps {
   selectedItem?: string;
   iconName?: string;
   isModalActive?: boolean;
-  data?: string[];
+  data?: TCategoriesTasks[];
   onSelect?: (value: string) => void;
   value?: string;
   setValue?: (value: string) => void;
   openModal?: () => void;
   closeModal?: () => void;
 }
+// TODO Подумай, как его можно оптимизировать и обобщить
 const FormItem = ({
   mode,
   label,
@@ -40,14 +42,15 @@ const FormItem = ({
   openModal,
   closeModal,
 }: IFormItemProps) => {
-  const onSave = (item: string) => {
-    onSelect?.(item);
+  const onSave = (title: string) => {
+    onSelect?.(title);
     closeModal?.();
   };
-  const renderItem = ({ item }: { item: string }) => {
+  const renderItem = ({ item }: { item: TCategoriesTasks }) => {
+    const { title } = item;
     return (
-      <TouchableOpacity onPress={() => onSave(item)}>
-        <Text style={{ color: '#0d3488ff' }}>{item}</Text>
+      <TouchableOpacity onPress={() => onSave(title)}>
+        <Text style={{ color: '#0d3488ff' }}>{title}</Text>
       </TouchableOpacity>
     );
   };
@@ -57,7 +60,7 @@ const FormItem = ({
         <Text style={styles.label}>{label}</Text>
         <TextInputCustom
           value={value ? value : ''}
-          onChange={setValue ?? (() => {})}
+          onChange={() => setValue}
           colorText={{ color: Colors.BlueDDD }}
         />
       </View>
@@ -72,19 +75,19 @@ const FormItem = ({
       </TouchableOpacity>
       <ModalCustom
         isModalActive={isModalActive ?? false}
-        closeModal={closeModal ?? (() => {})}
+        closeModal={() => closeModal}
       >
         {mode === 'calendar' ? (
           <CalendarCustom
-            closeModal={closeModal ?? (() => {})}
-            onSelect={onSelect ?? (() => {})}
+            closeModal={() => closeModal}
+            onSelect={() => onSelect}
           />
         ) : (
           <FlatList
             contentContainerStyle={styles.list}
             data={data}
             renderItem={renderItem}
-            keyExtractor={(item, index) => `${item}-${index}`}
+            keyExtractor={item => String(item.id)}
           />
         )}
       </ModalCustom>

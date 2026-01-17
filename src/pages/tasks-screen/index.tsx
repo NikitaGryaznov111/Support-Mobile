@@ -3,10 +3,12 @@ import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TasksList from '../../entities/task/ui/TasksList';
 import ButtonAddTask from '../../features/create-task/ui/ButtonAddTask';
+import TaskTypeSelector from '../../entities/task/ui/TaskTypeSelector';
 
 const TasksScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <TaskTypeSelector />
       <TasksList />
       <ButtonAddTask />
     </SafeAreaView>

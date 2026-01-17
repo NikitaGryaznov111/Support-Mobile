@@ -8,15 +8,15 @@ class TaskStore {
     makeAutoObservable(this);
   }
 
-  toggleTasksList(task: TTask) {
+  setTasksList(task: TTask) {
+    this.tasksList.push(task);
+  }
+  removeFromTasksList(task: TTask) {
     const index = this.tasksList.findIndex(t => t.id === task.id);
     if (index !== -1) {
       this.tasksList.splice(index, 1);
-    } else {
-      this.tasksList.push(task);
     }
   }
-
   toggleTasksInFavorites(task: TTask) {
     const index = this.tasksInFavorites.findIndex(t => t.id === task.id);
     if (index !== -1) {

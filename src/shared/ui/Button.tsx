@@ -11,26 +11,27 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 interface ButtonProps {
   title?: string;
-  onClick: () => void;
+  onPress: () => void;
   styleText?: StyleProp<TextStyle>;
   icon?: string;
   size?: number;
   styleIcon?: { color: string };
   styleView?: ViewStyle;
+  styleSelect?: ViewStyle | null;
 }
-// TODO исправь везде onClick на onPress
 const Button = ({
   title,
-  onClick,
+  onPress,
   styleText,
   icon,
   size,
   styleIcon,
   styleView,
+  styleSelect,
 }: ButtonProps) => {
   return (
-    <TouchableOpacity onPress={onClick}>
-      <View style={styleView}>
+    <TouchableOpacity onPress={onPress}>
+      <View style={[styleView, styleSelect]}>
         {title && <Text style={styleText}>{title}</Text>}
         {icon && <Icon name={icon} size={size} style={styleIcon} />}
       </View>

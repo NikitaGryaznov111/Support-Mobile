@@ -27,11 +27,11 @@ const TaskItem = ({ item }: TaskItemProps) => {
     taskStore.toggleTasksInFavorites(task);
   };
   const removeTask = (item: TTask) => {
-    taskStore.toggleTasksList(item);
+    taskStore.removeFromTasksList(item);
   };
   const onChecked = () => {
     taskStore.toggleCompletedTasks(item);
-    taskStore.toggleTasksList(item);
+    taskStore.removeFromTasksList(item);
   };
   console.log(taskStore.tasksList);
 
@@ -59,19 +59,19 @@ const TaskItem = ({ item }: TaskItemProps) => {
         </Text>
         <Button
           icon="flag-outline"
-          onClick={() => setIsFlag(prev => !prev)}
+          onPress={() => setIsFlag(prev => !prev)}
           size={20}
           styleIcon={{ color: isFlag ? Colors.Red : Colors.Gray }}
         />
         <Button
           icon="star-outline"
-          onClick={() => saveInFavorites(item)}
+          onPress={() => saveInFavorites(item)}
           size={20}
           styleIcon={{ color: isFavorites ? Colors.Gold : Colors.Gray }}
         />
         <Button
           icon="remove"
-          onClick={() => removeTask(item)}
+          onPress={() => removeTask(item)}
           size={20}
           styleIcon={{ color: Colors.Gray }}
         />
