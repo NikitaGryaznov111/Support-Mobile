@@ -28,7 +28,7 @@ interface IFormItemProps {
   openModal?: () => void;
   closeModal?: () => void;
 }
-// TODO Подумай, как его можно оптимизировать и обобщить
+// TODO! Подумай, как его можно оптимизировать и обобщить, использовать рендерпропс?
 const FormItem = ({
   mode,
   label,
@@ -60,7 +60,7 @@ const FormItem = ({
         <Text style={styles.label}>{label}</Text>
         <TextInputCustom
           value={value ? value : ''}
-          onChange={() => setValue}
+          onChange={setValue ?? (() => {})}
           colorText={{ color: Colors.BlueDDD }}
         />
       </View>
@@ -75,12 +75,12 @@ const FormItem = ({
       </TouchableOpacity>
       <ModalCustom
         isModalActive={isModalActive ?? false}
-        closeModal={() => closeModal}
+        closeModal={closeModal ?? (() => {})}
       >
         {mode === 'calendar' ? (
           <CalendarCustom
-            closeModal={() => closeModal}
-            onSelect={() => onSelect}
+            closeModal={closeModal ?? (() => {})}
+            onSelect={ onSelect ?? (() => {}) }
           />
         ) : (
           <FlatList

@@ -1,9 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import { TTask } from '../../../shared/types/tasks.types';
+
 class TaskStore {
   tasksList: TTask[] = [];
   tasksInFavorites: TTask[] = [];
   completedTasks: TTask[] = [];
+  selectedFilterType: string | null = null;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -32,6 +35,17 @@ class TaskStore {
     } else {
       this.completedTasks.push(task);
     }
+  }
+
+  get filteredTasksByType() {
+    if (this.selectedFilterType === null) {
+      return this.tasksList;
+    }
+    return this.tasksList.filter(t => t.type === this.selectedFilterType);
+  }
+
+  setSelectedFilterType(type: string | null) {
+    this.selectedFilterType = type;
   }
 }
 

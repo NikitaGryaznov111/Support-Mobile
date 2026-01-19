@@ -10,16 +10,15 @@ import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../shared/config/routes';
 import { TasksNavigateProps } from '../../../shared/types/navigation.types';
 import { taskStore } from '../model/task.store';
-// TODO МОЖНО ЕМУ ПРИНИМАТЬ ДЖЕНЕРИК, РАЗНЫЙ ТИП СПИСКА ЗАДАЧ, ЕСЛИ КАЖДЫЙ ТИП БУДЕТ РАЗНОЙ СТРУКТОРОЙ ДАННЫХ. НО ЭТО ВРЯД ЛИ
 const TasksList = () => {
   const { navigate } = useNavigation<TasksNavigateProps>();
-  const tasks = taskStore.tasksList;
-  const { completedTasks } = taskStore;
+  // TODO Надо привязать фильтрованный список к общему при создании зхадачи
+  const { completedTasks,  filteredTasksByType } = taskStore;
 
   const renderItem = ({ item }: { item: TTask }) => {
     return <TaskItem item={item} />;
   };
-
+ 
   const renderFooter = () => {
     return completedTasks.length ? (
       <Button
@@ -31,17 +30,17 @@ const TasksList = () => {
     ) : null;
   };
 
-  return tasks.length ? (
+  return filteredTasksByType.length ? (
     <FlatList
       renderItem={renderItem}
-      data={tasks}
+      data={filteredTasksByType}
       keyExtractor={item => item.id}
       extraData={completedTasks.length}
       ListFooterComponent={renderFooter}
     />
   ) : (
     <View style={styles.emptyContainer}>
-      <Text style={{ fontWeight: '500' }}>Отсутствуют добавленные задачи</Text>
+      <Text style={{ fontWeight: '500' }}>Задачи отсутствуют</Text>
       {completedTasks.length ? (
         <Button
           onPress={() => navigate(Routes.CompletedTasksScreen)}

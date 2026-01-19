@@ -3,26 +3,15 @@ import React, { useState } from 'react';
 import Button from '../../../shared/ui/Button';
 import { Colors } from '../../../shared/config/colors';
 import { typesTasks, EnumerationTypesTasks } from '../config/task.config';
+import { taskStore } from '../model/task.store';
 
 const TaskTypeSelector = () => {
   const [selectedIndexTypeTask, setSelectedIndexTypeTask] =
     useState<null | EnumerationTypesTasks>(null);
 
-  const onPress = (id: number | null) => {
+  const onPress = (id: number | null, title: string | null) => {
     setSelectedIndexTypeTask(id);
-    switch (id) {
-      case EnumerationTypesTasks.work:
-        return;
-      case EnumerationTypesTasks.personal:
-        return;
-      case EnumerationTypesTasks.listWish:
-        return;
-      case EnumerationTypesTasks.birthdays:
-        return;
-      // По дефолту возвращаю все задачи
-      default:
-        return;
-    }
+    taskStore.setSelectedFilterType(title);
   };
 
   return (
@@ -31,7 +20,7 @@ const TaskTypeSelector = () => {
         <View style={styles.container}>
           <Button
             title="Все"
-            onPress={() => onPress(null)}
+            onPress={() => onPress(null, null)}
             styleView={styles.button}
             styleText={
               selectedIndexTypeTask === null
@@ -45,7 +34,7 @@ const TaskTypeSelector = () => {
           {typesTasks.map(type => (
             <Button
               title={type.title}
-              onPress={() => onPress(type.id)}
+              onPress={() => onPress(type.id, type.title)}
               styleView={styles.button}
               styleSelect={
                 selectedIndexTypeTask === type.id ? styles.selectButton : null
