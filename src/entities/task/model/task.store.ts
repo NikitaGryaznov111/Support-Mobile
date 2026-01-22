@@ -6,6 +6,8 @@ class TaskStore {
   tasksInFavorites: TTask[] = [];
   completedTasks: TTask[] = [];
   selectedFilterType: string | null = null;
+  IndexMonth: number = new Date().getMonth();
+  currentYear: number = new Date().getFullYear();
 
   constructor() {
     makeAutoObservable(this);
@@ -46,6 +48,26 @@ class TaskStore {
 
   setSelectedFilterType(type: string | null) {
     this.selectedFilterType = type;
+  }
+
+  setIndexMonth(value: 'prev' | 'next') {
+    switch (value) {
+      case 'next':
+        if (this.IndexMonth === 11) {
+          this.IndexMonth = 0;
+          this.currentYear += 1;
+        } else {
+          this.IndexMonth = this.IndexMonth + 1;
+        }
+        break;
+      case 'prev':
+        if (this.IndexMonth === 0) {
+          this.IndexMonth = 11;
+          this.currentYear -= 1;
+        } else {
+          this.IndexMonth = this.IndexMonth - 1;
+        }
+    }
   }
 }
 

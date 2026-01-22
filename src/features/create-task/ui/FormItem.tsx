@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Colors } from '../../../shared/config/colors';
 import TextInputCustom from '../../../shared/ui/TextInputCustom';
 import ModalCustom from '../../../shared/ui/ModalCustom';
-import CalendarCustom from './CalendarCustom';
+import CalendarModal from './CalendarModal';
 import { TCategoriesTasks } from '../../../shared/types/tasks.types';
 
 interface IFormItemProps {
@@ -78,9 +78,9 @@ const FormItem = ({
         closeModal={closeModal ?? (() => {})}
       >
         {mode === 'calendar' ? (
-          <CalendarCustom
+          <CalendarModal
             closeModal={closeModal ?? (() => {})}
-            onSelect={ onSelect ?? (() => {}) }
+            onSelect={onSelect ?? (() => {})}
           />
         ) : (
           <FlatList

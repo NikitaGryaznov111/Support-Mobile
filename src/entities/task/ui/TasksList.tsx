@@ -12,13 +12,12 @@ import { TasksNavigateProps } from '../../../shared/types/navigation.types';
 import { taskStore } from '../model/task.store';
 const TasksList = () => {
   const { navigate } = useNavigation<TasksNavigateProps>();
-  // TODO Надо привязать фильтрованный список к общему при создании зхадачи
-  const { completedTasks,  filteredTasksByType } = taskStore;
+  const { completedTasks, filteredTasksByType } = taskStore;
 
   const renderItem = ({ item }: { item: TTask }) => {
     return <TaskItem item={item} />;
   };
- 
+
   const renderFooter = () => {
     return completedTasks.length ? (
       <Button
@@ -39,6 +38,7 @@ const TasksList = () => {
       ListFooterComponent={renderFooter}
     />
   ) : (
+    // TODO Сделать общий EmptyContainer компонент
     <View style={styles.emptyContainer}>
       <Text style={{ fontWeight: '500' }}>Задачи отсутствуют</Text>
       {completedTasks.length ? (

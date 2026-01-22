@@ -14,6 +14,7 @@ export default function ModalCustom({
   closeModal,
   children,
 }: IModalCustomProps) {
+  // TODO разберись почему много ререндеров
   console.log('рендер ModalCustom');
   return (
     <Modal
