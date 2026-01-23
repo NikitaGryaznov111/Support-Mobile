@@ -1,16 +1,18 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import SwitchMonth from './SwitchMonth';
+import CalendarGrid from './CalendarGrid';
 
-const Calendar = () => {
+const CalendarView = () => {
   return (
     <View style={styles.container}>
       <SwitchMonth />
+      <CalendarGrid/>
     </View>
   );
 };
 
-export default Calendar;
+export default CalendarView;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,

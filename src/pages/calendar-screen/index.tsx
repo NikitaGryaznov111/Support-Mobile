@@ -2,12 +2,12 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonAddTask from '../../features/create-task/ui/ButtonAddTask';
-import Calendar from '../../features/create-task/ui/Calendar';
+import CalendarView from '../../entities/task/ui/calendar-view/CalendarView';
 
 const CalendarScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Calendar />
+      <CalendarView />
       <ButtonAddTask />
     </SafeAreaView>
   );

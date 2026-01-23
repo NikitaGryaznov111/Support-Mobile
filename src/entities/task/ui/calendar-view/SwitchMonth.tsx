@@ -1,32 +1,36 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import Button from '../../../shared/ui/Button';
-import { MONTHS } from '../../../shared/config/date';
-import { taskStore } from '../../../entities/task/model/task.store';
-import { Colors } from '../../../shared/config/colors';
+import { taskStore } from '../../model/task.store';
+import { MONTHS } from '../../../../shared/config/date';
+import Button from '../../../../shared/ui/Button';
+import { Colors } from '../../../../shared/config/colors';
+
 
 const SwitchMonth = () => {
+
   const handleNextMonth = () => {
     taskStore.setIndexMonth('next');
   };
   const handlePrevMonth = () => {
     taskStore.setIndexMonth('prev');
   };
+
   const month = MONTHS[taskStore.IndexMonth];
   const year = taskStore.currentYear;
+
   const isCurrentMonth =
     taskStore.IndexMonth === new Date().getMonth() &&
     year === new Date().getFullYear();
 
   return (
     <View style={styles.container}>
-      <Button icon="chevron-back" onPress={handlePrevMonth} />
+      <Button icon="chevron-back" size={15} onPress={handlePrevMonth} />
       <View style={styles.date}>
-        <Text style={!isCurrentMonth && { color: Colors.Gray }}>{month}</Text>
-        <Text>{year}</Text>
+        <Text style={[!isCurrentMonth && { color: Colors.Gray }, styles.text]}>{month}</Text>
+        <Text style={styles.text}>{year}</Text>
       </View>
-      <Button icon="chevron-forward" onPress={handleNextMonth} />
+      <Button icon="chevron-forward" size={15} onPress={handleNextMonth} />
     </View>
   );
 };
@@ -44,4 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     columnGap: 5,
   },
+  text:{
+    fontSize:16
+  }
 });
