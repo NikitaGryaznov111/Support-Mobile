@@ -7,7 +7,7 @@ const CalendarView = () => {
   return (
     <View style={styles.container}>
       <SwitchMonth />
-      <CalendarGrid/>
+      <CalendarGrid />
     </View>
   );
 };

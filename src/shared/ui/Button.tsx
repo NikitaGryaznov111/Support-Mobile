@@ -16,8 +16,8 @@ interface ButtonProps {
   icon?: string;
   size?: number;
   styleIcon?: { color: string };
-  styleView?: ViewStyle;
-  styleSelect?: ViewStyle | null;
+  styleView?: StyleProp<ViewStyle>;
+  styleSelect?: StyleProp<ViewStyle>;
 }
 const Button = ({
   title,

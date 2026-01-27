@@ -12,3 +12,5 @@ export const MONTHS = [
   'Ноябрь',
   'Декабрь',
 ] as const;
+
+export const WEEKS = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'] as const;
