@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import {
   FlatList,
@@ -6,13 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Colors } from '../../../shared/config/colors';
 import TextInputCustom from '../../../shared/ui/TextInputCustom';
 import ModalCustom from '../../../shared/ui/ModalCustom';
 import CalendarModal from './CalendarModal';
-import { TCategoriesTasks } from '../../../shared/types/tasks.types';
+import { TCategoriesTasks } from '../../../entities/task/model/types';
+import { taskStore } from '../../../entities/task/model/store';
+import { parseDate } from '../../../shared/lib/date-utils';
 
 interface IFormItemProps {
   mode: 'textInput' | 'modal' | 'calendar';
@@ -33,34 +36,45 @@ const FormItem = ({
   mode,
   label,
   selectedItem,
-  iconName,
-  isModalActive,
+  iconName = '',
+  isModalActive = false,
   data,
-  onSelect,
+  onSelect = () => {},
   value,
-  setValue,
+  setValue = () => {},
   openModal,
-  closeModal,
+  closeModal = () => {},
 }: IFormItemProps) => {
+  useEffect(() => {
+    if (taskStore.selectedDate && mode === 'calendar') {
+      onSelect(parseDate(taskStore.selectedDate));
+    }
+    return () => {
+      if (mode === 'calendar') {
+        onSelect('');
+      }
+    };
+  }, [taskStore.selectedDate]);
+
   const onSave = (title: string) => {
-    onSelect?.(title);
-    closeModal?.();
+    onSelect(title);
+    closeModal();
   };
-  const renderItem = ({ item }: { item: TCategoriesTasks }) => {
-    const { title } = item;
-    return (
-      <TouchableOpacity onPress={() => onSave(title)}>
-        <Text style={{ color: '#0d3488ff' }}>{title}</Text>
+  const renderItem = useCallback(
+    ({ item }: { item: TCategoriesTasks }) => (
+      <TouchableOpacity onPress={() => onSave(item.title)}>
+        <Text style={{ color: '#0d3488ff' }}>{item.title}</Text>
       </TouchableOpacity>
-    );
-  };
+    ),
+    [onSave],
+  );
   if (mode === 'textInput') {
     return (
       <View style={styles.item}>
         <Text style={styles.label}>{label}</Text>
         <TextInputCustom
-          value={value ? value : ''}
-          onChange={setValue ?? (() => {})}
+          value={value ?? ''}
+          onChange={setValue}
           colorText={{ color: Colors.BlueDDD }}
         />
       </View>
@@ -71,17 +85,11 @@ const FormItem = ({
       <Text style={styles.label}>{label}</Text>
       <TouchableOpacity style={styles.dropDown} onPress={openModal}>
         <Text style={{ color: Colors.BlueDDD }}>{selectedItem}</Text>
-        <Icon name={iconName ? iconName : ''} />
+        <Icon name={iconName} />
       </TouchableOpacity>
-      <ModalCustom
-        isModalActive={isModalActive ?? false}
-        closeModal={closeModal ?? (() => {})}
-      >
+      <ModalCustom isModalActive={isModalActive} closeModal={closeModal}>
         {mode === 'calendar' ? (
-          <CalendarModal
-            closeModal={closeModal ?? (() => {})}
-            onSelect={onSelect ?? (() => {})}
-          />
+          <CalendarModal closeModal={closeModal} onSelect={onSelect} />
         ) : (
           <FlatList
             contentContainerStyle={styles.list}
@@ -105,7 +113,6 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 10,
-
     borderBottomWidth: 1,
     paddingBottom: 5,
     borderBottomColor: Colors.BlueDD,

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
@@ -7,7 +6,7 @@ import { Colors } from '../../../shared/config/colors';
 import Button from '../../../shared/ui/Button';
 import useCreateTask from '../lib/useCreateTask';
 import { toAst } from '../../../shared/lib/toAst';
-import { taskStore } from '../../../entities/task/model/task.store';
+import { taskStore } from '../../../entities/task/model/store';
 import {
   priorityTasks,
   typesTasks,

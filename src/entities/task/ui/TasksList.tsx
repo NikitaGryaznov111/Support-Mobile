@@ -9,7 +9,7 @@ import Button from '../../../shared/ui/Button';
 import { useNavigation } from '@react-navigation/native';
 import { Routes } from '../../../shared/config/routes';
 import { TasksNavigateProps } from '../../../shared/types/navigation.types';
-import { taskStore } from '../model/task.store';
+import { taskStore } from '../model/store';
 const TasksList = () => {
   const { navigate } = useNavigation<TasksNavigateProps>();
   const { completedTasks, filteredTasksByType } = taskStore;

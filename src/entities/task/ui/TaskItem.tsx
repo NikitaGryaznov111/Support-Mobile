@@ -7,7 +7,7 @@ import { TTask } from '../../../shared/types/tasks.types';
 import { Colors } from '../../../shared/config/colors';
 import Checkbox from '../../../shared/ui/Checkbox';
 import Button from '../../../shared/ui/Button';
-import { taskStore } from '../model/task.store';
+import { taskStore } from '../model/store';
 
 // TODO isFlag тоже обрабатывай через mobX
 // TODO создай  модалку - toast, здесь используй как предупреждение при удалении задачи

@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import { TTask } from '../../../shared/types/tasks.types';
+import { TSelectedDate } from './types';
 
 class TaskStore {
   tasksList: TTask[] = [];
@@ -8,6 +9,7 @@ class TaskStore {
   selectedFilterType: string | null = null;
   selectedMonth: number = new Date().getMonth();
   selectedYear: number = new Date().getFullYear();
+  selectedDate: TSelectedDate = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -68,6 +70,10 @@ class TaskStore {
           this.selectedMonth = this.selectedMonth - 1;
         }
     }
+  }
+
+  setSelectedDate(date: TSelectedDate) {
+    this.selectedDate = date;
   }
 }
 

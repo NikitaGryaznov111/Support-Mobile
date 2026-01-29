@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { TTask } from '../../../shared/types/tasks.types';
 import { Colors } from '../../../shared/config/colors';
 import Checkbox from '../../../shared/ui/Checkbox';
-import { taskStore } from '../model/task.store';
+import { taskStore } from '../model/store';
 
 interface ICompletedTaskProps {
   item: TTask;

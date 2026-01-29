@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { taskStore } from '../../model/task.store';
+import { taskStore } from '../../model/store';
 import { MONTHS } from '../../../../shared/config/date';
 import Button from '../../../../shared/ui/Button';
 import { Colors } from '../../../../shared/config/colors';

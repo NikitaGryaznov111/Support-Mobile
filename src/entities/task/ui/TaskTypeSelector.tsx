@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '../../../shared/ui/Button';
 import { Colors } from '../../../shared/config/colors';
 import { typesTasks, EnumerationTypesTasks } from '../config/task.config';
-import { taskStore } from '../model/task.store';
+import { taskStore } from '../model/store';
 
 const TaskTypeSelector = () => {
   const [selectedIndexTypeTask, setSelectedIndexTypeTask] =

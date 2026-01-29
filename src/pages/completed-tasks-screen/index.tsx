@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TTask } from '../../shared/types/tasks.types';
 import CompletedTask from '../../entities/task/ui/CompletedTask';
-import { taskStore } from '../../entities/task/model/task.store';
+import { taskStore } from '../../entities/task/model/store';
 
 const CompletedTasksScreen = () => {
   const { completedTasks } = taskStore;

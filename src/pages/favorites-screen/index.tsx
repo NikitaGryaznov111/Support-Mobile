@@ -3,7 +3,7 @@ import React from 'react';
 import { TTask } from '../../shared/types/tasks.types';
 import { observer } from 'mobx-react-lite';
 import TaskInFavorites from '../../entities/task/ui/TaskInFavorites';
-import { taskStore } from '../../entities/task/model/task.store';
+import { taskStore } from '../../entities/task/model/store';
 
 const FavoritesScreen = () => {
   const renderItem = ({ item }: { item: TTask }) => {
