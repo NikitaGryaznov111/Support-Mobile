@@ -1,44 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { taskStore } from '../../model/store';
 import Button from '../../../../shared/ui/Button';
 import { WEEKS } from '../../../../shared/config/date';
 import { Colors } from '../../../../shared/config/colors';
-import { parseDate } from '../../../../shared/lib/date-utils';
+import {
+  generateGridCalendar,
+  getAllDatesTasks,
+  getDaysInMonth,
+  getIndexDayWeekFirstDayMonth,
+  isCurrentDay,
+  isSelectedDay,
+  isSetTaskInThisDay,
+} from './lib/calendar-utils';
 
 const CalendarGrid = () => {
-  // TODO Вынеси работу с датами в отдельную утилиту
   const month = taskStore.selectedMonth;
   const year = taskStore.selectedYear;
-  // Получаю последний день установленного года и месяцы
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  // Получаю день недели первого дня месяца
-  const dayWeekFirstDayMonth = new Date(year, month, 1).getDay();
-  // Чтобы с понедельника был отсчет, пн теперь с 0
-  const idexDayWeekFirstDayMonth =
-    dayWeekFirstDayMonth === 0 ? 6 : dayWeekFirstDayMonth - 1;
-  // Начанию формировать массив дней ceils, сначала там будут null, которые показывают количество дней недели до 1 числа выбранного месяца
-  const ceils: Array<null | number> = Array.from(
-    { length: idexDayWeekFirstDayMonth },
-    () => null,
+
+  const { ceils, rows } = useMemo(() => {
+    const daysInMonth = getDaysInMonth(year, month);
+    const indexDayWeekFirstDayMonth = getIndexDayWeekFirstDayMonth(year, month);
+    return generateGridCalendar(indexDayWeekFirstDayMonth, daysInMonth);
+  }, [month, year]);
+
+  const allDatesTasks = useMemo(
+    () => getAllDatesTasks(taskStore.tasksList),
+    [taskStore.tasksList],
   );
-  // Затем заполняю массив датами выбранного месяца
-  for (let i = 1; i <= daysInMonth; i++) {
-    ceils.push(i);
-  }
-  // Получаю количество строк
-  const rowLength = Math.ceil(ceils.length / 7);
-  const arrRows = Array.from({ length: rowLength }, (_, i) => i);
-
-  const isCurrentDay = (day: number | null) => {
-    const currentDay = new Date().getDate();
-    const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth();
-    return day === currentDay && month === currentMonth && year === currentYear;
-  };
-
   const handleSetDay = (day: number | null) => {
     taskStore.setSelectedDate({
       day,
@@ -47,24 +39,6 @@ const CalendarGrid = () => {
     });
   };
 
-  const isSelectedDay = (day: number | null) => {
-    return (
-      day === taskStore.selectedDate?.day &&
-      year === taskStore.selectedDate.year &&
-      month === taskStore.selectedDate.month
-    );
-  };
-
-  const taskSet = new Set(taskStore.tasksList.map(task => task.date)) || [];
-
-  const isSetTaskInThisDay = (day: number | null) => {
-    const dateString = parseDate({
-      day,
-      month,
-      year,
-    });
-    return taskSet.has(dateString);
-  };
   // Делаю таблицу 7*5
   return (
     <View style={styles.container}>
@@ -76,7 +50,7 @@ const CalendarGrid = () => {
         ))}
       </View>
 
-      {arrRows.map((_, indexRow) => {
+      {rows.map((_, indexRow) => {
         // Каждые 7 следующих дней показываю в календаре
         const start = indexRow * 7;
         const weekCeils = ceils.slice(start, start + 7);
@@ -93,19 +67,27 @@ const CalendarGrid = () => {
                     title={day?.toString() || ''}
                     onPress={() => handleSetDay(day)}
                     styleView={[
-                      isSelectedDay(day) && styles.selectDay,
+                      isSelectedDay(day, year, month, taskStore.selectedDate) &&
+                        styles.selectDay,
                       styles.day,
                     ]}
                     styleText={[
-                      isCurrentDay(day) && { color: Colors.BlueL },
-                      isSelectedDay(day) && { color: Colors.White },
+                      isCurrentDay(day, month, year) && {
+                        color: Colors.BlueL,
+                      },
+                      isSelectedDay(
+                        day,
+                        year,
+                        month,
+                        taskStore.selectedDate,
+                      ) && { color: Colors.White },
                     ]}
                   />
                   {/* View Для даты с задачами */}
-                  {isSetTaskInThisDay(day) && (
+                  {isSetTaskInThisDay(day, month, year, allDatesTasks) && (
                     <View
                       style={
-                        isSelectedDay(day)
+                        isSelectedDay(day, year, month, taskStore.selectedDate)
                           ? { display: 'none' }
                           : styles.taskInDay
                       }
